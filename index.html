@@ -4,106 +4,491 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fortude Knowledge Repository</title>
-    <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        body { display: flex; flex-direction: column; min-height: 100vh; }
-        .choice-section { flex: 1; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #F7F8FA;
+            color: #374151;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── NAV ── */
+        .nav {
+            background: #0D2138;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-top {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 0 28px;
+            height: 52px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .nav-brand {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-brand::before {
+            content: '';
+            width: 8px; height: 8px;
+            background: #27B5E8;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .nav-search {
+            flex: 1;
+            max-width: 360px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 6px;
+            padding: 7px 14px;
+            font-size: 13px;
+            color: #fff;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .nav-search::placeholder { color: rgba(255,255,255,0.4); }
+        .nav-search:focus { border-color: #27B5E8; }
+
+        .nav-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+        .btn-q {
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.75);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-size: 13px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-q:hover { background: rgba(255,255,255,0.18); }
+        .btn-s {
+            background: #F05A28;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-s:hover { background: #d44e20; }
+
+        /* ── VIEW TABS ── */
+        .view-tabs {
+            display: flex;
+            padding: 0 28px;
+        }
+        .view-tab {
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            padding: 10px 16px;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .view-tab:hover { color: rgba(255,255,255,0.85); }
+        .view-tab.active { color: #27B5E8; border-bottom-color: #27B5E8; }
+
+        /* ── WHAT'S NEW STRIP ── */
+        .wn-strip {
+            background: #0D2138;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 8px 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .wn-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #27B5E8;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            flex-shrink: 0;
+        }
+        .wn-items { display: flex; gap: 8px; overflow: hidden; }
+        .wn-item {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 6px;
+            padding: 5px 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            flex-shrink: 0;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+        .wn-item:hover { background: rgba(255,255,255,0.12); }
+        .wn-tag {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .wn-tag.new { background: #F05A28; color: #fff; }
+        .wn-tag.upd { background: #27B5E8; color: #fff; }
+        .wn-title { font-size: 12px; color: rgba(255,255,255,0.82); font-weight: 500; }
+        .wn-sub   { font-size: 11px; color: rgba(255,255,255,0.35); }
+
+        /* ── SEARCH OVERLAY ── */
+        #searchOverlay {
+            background: #fff;
+            border: 1px solid rgba(13,33,56,0.12);
+            border-radius: 8px;
+            position: absolute;
+            top: 52px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 440px;
+            z-index: 300;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+            max-height: 380px;
+            overflow-y: auto;
+        }
+        .sri {
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(13,33,56,0.07);
+            text-decoration: none;
+            display: block;
+        }
+        .sri:last-child { border-bottom: none; }
+        .sri:hover { background: #F7F8FA; }
+        .sri-t { font-size: 13px; font-weight: 500; color: #0D2138; }
+        .sri-m { font-size: 11px; color: #6B7280; margin-top: 2px; }
+        .sri-e { padding: 16px; text-align: center; font-size: 13px; color: #6B7280; }
+
+        /* ── SECTION HERO ── */
+        .section-hero {
+            background: #0D2138;
+            padding: 20px 28px 22px;
+        }
+        .section-hero h1 { color: #fff; font-size: 20px; font-weight: 500; margin-bottom: 4px; }
+        .section-hero p  { color: rgba(255,255,255,0.4); font-size: 13px; }
+
+        /* ── VIEW PANELS ── */
+        .view-panel { display: none; }
+        .view-panel.active { display: block; flex: 1; }
+
+        /* ── CARD GRID ── */
+        .index-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            padding: 28px;
+        }
+
+        /* ── PRACTICE / ENABLER CARD ── */
+        .icard {
+            background: #fff;
+            border: 1px solid rgba(13,33,56,0.1);
+            border-radius: 14px;
+            padding: 22px 22px 20px;
+            text-decoration: none;
+            color: #0D2138;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-top: 3px solid #27B5E8;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .icard.enabler { border-top-color: #F05A28; }
+        .icard.advisory { border-top-color: #F05A28; }
+        .icard:hover { box-shadow: 0 4px 20px rgba(13,33,56,0.1); transform: translateY(-2px); }
+
+        .icard-title { font-size: 15px; font-weight: 700; color: #0D2138; line-height: 1.3; }
+        .icard-desc  { font-size: 13px; color: #6B7280; line-height: 1.55; flex: 1; }
+
+        .icard-subs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .isub {
+            background: #F7F8FA;
+            border: 1px solid rgba(13,33,56,0.08);
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 11px;
+            color: #6B7280;
+        }
+
+        .icard-link {
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .icard:not(.enabler):not(.advisory) .icard-link { color: #27B5E8; }
+        .icard.enabler .icard-link  { color: #F05A28; }
+        .icard.advisory .icard-link { color: #F05A28; }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #0D2138;
+            padding: 16px 28px;
+            text-align: center;
+            color: rgba(255,255,255,0.35);
+            font-size: 12px;
+            margin-top: auto;
+        }
+        footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+        footer a:hover { color: rgba(255,255,255,0.7); }
     </style>
 </head>
 <body>
-    <nav class="global-nav" style="position:relative;">
-        <div class="nav-top">
-            <a href="index.html" class="nav-brand">Fortude Repository</a>
-            <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
-            <div class="nav-actions">
-                <a href="admin/queue.html" class="btn-queue-nav">Approval queue</a>
-                <a href="submit.html" class="btn-submit-nav">+ Submit</a>
-            </div>
+
+<!-- ── NAV ── -->
+<nav class="nav" style="position:relative;">
+    <div class="nav-top">
+        <a href="index.html" class="nav-brand">Fortude Repository</a>
+        <input type="text" class="nav-search" id="globalSearch" placeholder="Search collateral..." autocomplete="off">
+        <div class="nav-right">
+            <a href="admin/queue.html" class="btn-q">Approval queue</a>
+            <a href="submit.html" class="btn-s">+ Submit</a>
         </div>
-    </nav>
-    <div id="whats-new-target"></div>
-    <div id="searchOverlay" style="display:none;background:#fff;border:1px solid rgba(13,33,56,0.1);border-radius:8px;position:absolute;top:56px;left:50%;transform:translateX(-50%);width:420px;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,0.12);">
-        <div id="searchResults" style="padding:6px 0;"></div>
     </div>
+    <div class="view-tabs">
+        <div class="view-tab active" id="tab-practices" onclick="switchView('practices')">Practices</div>
+        <div class="view-tab"        id="tab-enablers"  onclick="switchView('enablers')">Enablers</div>
+    </div>
+</nav>
 
-    <section class="choice-hero">
-        <h1>Fortude <span style="color:var(--cyan);font-weight:600;">Knowledge Repository</span></h1>
-        <p>Collateral, intelligence and resources for practices and enablement teams across the organisation</p>
-    </section>
+<div id="searchOverlay" style="display:none;">
+    <div id="searchResults" style="padding:6px 0;"></div>
+</div>
 
-    <main class="choice-section">
-        <p class="choice-label">Where would you like to go?</p>
-        <div class="choice-grid">
-            <a href="practices/index.html" class="choice-card practices">
-                <div class="choice-icon">⚙️</div>
-                <div class="choice-title">Practices</div>
-                <p class="choice-desc">Collateral organised by practice area — products, services, frameworks and delivery resources for each Fortude capability.</p>
-                <div class="choice-subs">
-                    <a href="practices/infor-m3-cloudsuite.html" class="choice-sub-item">Infor M3 &amp; CloudSuite</a>
-                    <a href="practices/business-central.html"    class="choice-sub-item">Business Central &amp; Dynamics 365</a>
-                    <a href="practices/data-ai.html"             class="choice-sub-item">Data &amp; AI</a>
-                    <a href="practices/automation.html"          class="choice-sub-item">Automation</a>
-                    <a href="practices/low-code.html"            class="choice-sub-item">Low Code Application Development</a>
-                    <a href="practices/managed-services.html"    class="choice-sub-item">Managed Services</a>
-                    <a href="practices/advisory.html"            class="choice-sub-item">Digital &amp; AI Advisory</a>
-                </div>
-                <div class="choice-arrow">Browse Practices →</div>
-            </a>
-            <a href="enablers/index.html" class="choice-card enablers">
-                <div class="choice-icon">📣</div>
-                <div class="choice-title">Enablers</div>
-                <p class="choice-desc">Intelligence, sales, presales and marketing collateral to support regional leadership and go-to-market teams.</p>
-                <div class="choice-subs">
-                    <a href="enablers/insights-intelligence.html" class="choice-sub-item">Insights &amp; Intelligence</a>
-                    <a href="enablers/sales.html"                 class="choice-sub-item">Sales</a>
-                    <a href="enablers/presales.html"              class="choice-sub-item">Presales</a>
-                    <a href="enablers/marketing.html"             class="choice-sub-item">Marketing</a>
-                    <a href="enablers/partners.html"              class="choice-sub-item">Partners</a>
-                </div>
-                <div class="choice-arrow">Browse Enablers →</div>
-            </a>
-        </div>
-    </main>
+<!-- ── WHAT'S NEW ── -->
+<div class="wn-strip">
+    <span class="wn-label">What's new</span>
+    <div class="wn-items">
+        <a href="enablers/insights-intelligence.html" class="wn-item"><span class="wn-tag new">New</span><span class="wn-title">I&amp;I April 2026</span><span class="wn-sub">Insights &amp; Intelligence · 2 days ago</span></a>
+        <a href="practices/advisory.html"             class="wn-item"><span class="wn-tag new">New</span><span class="wn-title">OCM Playbook</span><span class="wn-sub">Digital &amp; AI Advisory · 4 days ago</span></a>
+        <a href="enablers/sales.html"                 class="wn-item"><span class="wn-tag upd">Updated</span><span class="wn-title">Manufacturing Sector Playbook</span><span class="wn-sub">Sales · 1 week ago</span></a>
+        <a href="practices/advisory.html"             class="wn-item"><span class="wn-tag upd">Updated</span><span class="wn-title">Digital Maturity Model v3</span><span class="wn-sub">Digital &amp; AI Advisory · 2 weeks ago</span></a>
+    </div>
+</div>
 
-    <footer class="footer">
-        <p>&copy; 2026 Fortude. Knowledge Repository v3.0 &nbsp;·&nbsp;
-           <a href="submit.html" style="color:rgba(255,255,255,0.4);">Submit content</a> &nbsp;·&nbsp;
-           <a href="admin/queue.html" style="color:rgba(255,255,255,0.4);">Admin queue</a>
-        </p>
-    </footer>
+<!-- ── PRACTICES PANEL ── -->
+<div class="view-panel active" id="panel-practices">
+    <div class="section-hero">
+        <h1>Practices</h1>
+        <p>Select a practice area to browse collateral by subcategory</p>
+    </div>
+    <div class="index-grid">
 
-    <script src="assets/js/repository.js"></script>
-    <script src="assets/js/search.js"></script>
-    <script>
-    // Override What's New hrefs for root-level context
-    document.addEventListener('DOMContentLoaded', function() {
-        var target = document.getElementById('whats-new-target');
-        if (!target) return;
-        var items = [
-            { title: "I&I April 2026",                tag: "new",     type: "Intelligence Report", practice: "Insights & Intelligence", ago: "2 days ago",  href: "enablers/insights-intelligence.html" },
-            { title: "OCM Playbook",                  tag: "new",     type: "Playbook",            practice: "Digital & AI Advisory",   ago: "4 days ago",  href: "practices/advisory.html" },
-            { title: "Manufacturing Sector Playbook", tag: "updated", type: "Playbook",            practice: "Sales",                   ago: "1 week ago",  href: "enablers/sales.html" },
-            { title: "Digital Maturity Model v3",     tag: "updated", type: "Framework",           practice: "Digital & AI Advisory",   ago: "2 weeks ago", href: "practices/advisory.html" },
-        ];
-        var html = '<div class="whats-new-strip"><span class="wn-label">What\'s new</span><div class="wn-items">';
-        items.forEach(function(n) {
-            html += '<a href="'+n.href+'" class="wn-item">';
-            html += '<span class="wn-tag '+n.tag+'">'+(n.tag==='new'?'New':'Updated')+'</span>';
-            html += '<span class="wn-title">'+n.title+'</span>';
-            html += '<span class="wn-sub">'+n.practice+' · '+n.ago+'</span>';
-            html += '</a>';
-        });
-        html += '</div></div>';
-        target.innerHTML = html;
+        <a href="practices/infor-m3-cloudsuite.html" class="icard">
+            <div class="icard-title">Infor M3 &amp; CloudSuite</div>
+            <div class="icard-desc">Products, services and delivery collateral for M3 and CloudSuite implementations across all regions.</div>
+            <div class="icard-subs">
+                <span class="isub">Products</span>
+                <span class="isub">Services</span>
+            </div>
+            <div class="icard-link">Browse →</div>
+        </a>
+
+        <a href="practices/business-central.html" class="icard">
+            <div class="icard-title">Business Central &amp; Dynamics 365</div>
+            <div class="icard-desc">Collateral for BC and D365 implementations, testing services and continuous update management.</div>
+            <div class="icard-subs">
+                <span class="isub">Products</span>
+                <span class="isub">Services</span>
+            </div>
+            <div class="icard-link">Browse →</div>
+        </a>
+
+        <a href="practices/data-ai.html" class="icard">
+            <div class="icard-title">Data &amp; AI</div>
+            <div class="icard-desc">Products, accelerators and service collateral for Fortude's Data &amp; AI practice across all regions.</div>
+            <div class="icard-subs">
+                <span class="isub">Products</span>
+                <span class="isub">Services</span>
+            </div>
+            <div class="icard-link">Browse →</div>
+        </a>
+
+        <a href="practices/automation.html" class="icard">
+            <div class="icard-title">Automation</div>
+            <div class="icard-desc">Agentic AI frameworks, intelligent automation and document processing collateral.</div>
+            <div class="icard-subs">
+                <span class="isub">Products</span>
+                <span class="isub">Services</span>
+            </div>
+            <div class="icard-link">Browse →</div>
+        </a>
+
+        <a href="practices/low-code.html" class="icard">
+            <div class="icard-title">Low Code Application Development</div>
+            <div class="icard-desc">Custom application development, UI/UX design and integration services collateral.</div>
+            <div class="icard-subs">
+                <span class="isub">Services</span>
+            </div>
+            <div class="icard-link">Browse →</div>
+        </a>
+
+        <a href="practices/managed-services.html" class="icard">
+            <div class="icard-title">Managed Services</div>
+            <div class="icard-desc">Application management, managed testing and data &amp; AI managed services collateral.</div>
+            <div class="icard-subs">
+                <span class="isub">Services</span>
+            </div>
+            <div class="icard-link">Browse →</div>
+        </a>
+
+        <a href="practices/advisory.html" class="icard advisory">
+            <div class="icard-title">Digital &amp; AI Advisory</div>
+            <div class="icard-desc">Frameworks, accelerators and advisory service collateral for transformation engagements.</div>
+            <div class="icard-subs">
+                <span class="isub">Frameworks</span>
+                <span class="isub">Accelerators</span>
+                <span class="isub">Services</span>
+            </div>
+            <div class="icard-link">Browse →</div>
+        </a>
+
+    </div>
+</div>
+
+<!-- ── ENABLERS PANEL ── -->
+<div class="view-panel" id="panel-enablers">
+    <div class="section-hero">
+        <h1>Enablers</h1>
+        <p>Select an enabler to browse collateral by subcategory</p>
+    </div>
+    <div class="index-grid">
+
+        <a href="enablers/insights-intelligence.html" class="icard enabler">
+            <div class="icard-title">Insights &amp; Intelligence</div>
+            <div class="icard-desc">Market intelligence, product bridge content and strategic research for leadership and practice teams.</div>
+            <div class="icard-subs">
+                <span class="isub">Unplugged</span>
+                <span class="isub">Product Bridge</span>
+                <span class="isub">Market Research</span>
+            </div>
+            <div class="icard-link">Browse →</div>
+        </a>
+
+        <a href="enablers/sales.html" class="icard enabler">
+            <div class="icard-title">Sales</div>
+            <div class="icard-desc">Onboarding, playbooks, battlecards, case studies and engagement tools for regional sales teams.</div>
+            <div class="icard-subs">
+                <span class="isub">Battlecards</span>
+                <span class="isub">Decks</span>
+                <span class="isub">Case Studies</span>
+                <span class="isub">Playbooks</span>
+                <span class="isub">Onboarding</span>
+                <span class="isub">Objection Handling</span>
+            </div>
+            <div class="icard-link">Browse →</div>
+        </a>
+
+        <a href="enablers/presales.html" class="icard enabler">
+            <div class="icard-title">Presales</div>
+            <div class="icard-desc">Proposal templates, digital maturity assessment kits and product demo resources for presales teams.</div>
+            <div class="icard-subs">
+                <span class="isub">Proposals &amp; SoW</span>
+                <span class="isub">Assessment Kits</span>
+                <span class="isub">Demo Scripts</span>
+            </div>
+            <div class="icard-link">Browse →</div>
+        </a>
+
+        <a href="enablers/marketing.html" class="icard enabler">
+            <div class="icard-title">Marketing</div>
+            <div class="icard-desc">Webinar kits, white papers, thought leadership, infographics, event resources and brand assets.</div>
+            <div class="icard-subs">
+                <span class="isub">White Papers</span>
+                <span class="isub">Brand Assets</span>
+                <span class="isub">Webinar Kits</span>
+                <span class="isub">Event Kits</span>
+            </div>
+            <div class="icard-link">Browse →</div>
+        </a>
+
+        <a href="enablers/partners.html" class="icard enabler">
+            <div class="icard-title">Partners</div>
+            <div class="icard-desc">Partner collateral, co-sell materials and alliance resources.</div>
+            <div class="icard-subs">
+                <span class="isub">Coming soon</span>
+            </div>
+            <div class="icard-link">Browse →</div>
+        </a>
+
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Fortude. Knowledge Repository v3.0 &nbsp;·&nbsp;
+       <a href="submit.html">Submit content</a> &nbsp;·&nbsp;
+       <a href="admin/queue.html">Admin queue</a>
+    </p>
+</footer>
+
+<script src="assets/js/repository.js"></script>
+<script src="assets/js/search.js"></script>
+<script>
+// ── VIEW SWITCHING ──
+function switchView(view) {
+    document.querySelectorAll('.view-tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.view-panel').forEach(function(p){ p.classList.remove('active'); });
+    document.getElementById('tab-' + view).classList.add('active');
+    document.getElementById('panel-' + view).classList.add('active');
+}
+
+// ── SEARCH ──
+document.addEventListener('DOMContentLoaded', function () {
+    // Fix search paths — root context
+    if (typeof SEARCH_INDEX !== 'undefined') {
+        SEARCH_INDEX.forEach(function(i){ i.href = i.href.replace('../',''); });
+    }
+
+    var input   = document.getElementById('globalSearch');
+    var overlay = document.getElementById('searchOverlay');
+    var results = document.getElementById('searchResults');
+    if (!input) return;
+
+    input.addEventListener('input', function () {
+        var q = this.value.trim();
+        if (q.length < 2) { overlay.style.display = 'none'; return; }
+        if (typeof runSearch === 'undefined') return;
+        var found = runSearch(q);
+        results.innerHTML = found.length
+            ? found.map(function(r){
+                return '<a href="'+r.href+'" class="sri"><div class="sri-t">'+r.title+'</div><div class="sri-m">'+r.type+' · '+r.practice+'</div></a>';
+              }).join('')
+            : '<div class="sri-e">No results for "'+q+'"</div>';
+        overlay.style.display = 'block';
     });
-    // Root-level search uses same paths minus ../
-    document.addEventListener('DOMContentLoaded', function() {
-        if (typeof SEARCH_INDEX !== 'undefined') {
-            SEARCH_INDEX.forEach(function(item) {
-                item.href = item.href.replace('../', '');
-            });
-        }
+    input.addEventListener('keydown', function(e){
+        if (e.key === 'Escape') { overlay.style.display = 'none'; this.value = ''; }
     });
-    </script>
+    document.addEventListener('click', function(e){
+        if (!input.contains(e.target) && !overlay.contains(e.target)) overlay.style.display = 'none';
+    });
+});
+</script>
+
 </body>
 </html>

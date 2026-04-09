@@ -5,49 +5,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Approval Queue — Fortude Repository</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .queue-tabs { display:flex; border-bottom:1px solid rgba(13,33,56,0.1); background:#fff; padding:0 24px; }
+        .queue-tab {
+            padding:12px 18px; font-size:13px; color:#6B7280; cursor:pointer;
+            border-bottom:2px solid transparent; transition:all 0.15s; user-select:none;
+            display:flex; align-items:center; gap:7px;
+        }
+        .queue-tab:hover { color:#0D2138; }
+        .queue-tab.active { color:#27B5E8; border-bottom-color:#27B5E8; font-weight:500; }
+        .tab-badge {
+            font-size:11px; font-weight:600; padding:1px 7px;
+            border-radius:10px; background:#FAECE7; color:#712B13;
+        }
+        .tab-badge.blue { background:#E6F1FB; color:#185FA5; }
+
+        .tab-panel { display:none; }
+        .tab-panel.active { display:block; }
+
+        /* flag-specific card styles */
+        .flag-card {
+            background:#fff; border:1px solid rgba(13,33,56,0.1); border-radius:12px;
+            padding:18px 20px; margin-bottom:12px;
+            display:flex; align-items:flex-start; gap:14px;
+            border-left:3px solid #F05A28;
+        }
+        .flag-card.resolved { border-left-color:#639922; opacity:0.7; }
+        .flag-avatar {
+            width:36px; height:36px; border-radius:50%; background:#FAECE7; color:#712B13;
+            display:flex; align-items:center; justify-content:center;
+            font-size:12px; font-weight:600; flex-shrink:0;
+        }
+        .flag-content { flex:1; min-width:0; }
+        .flag-title { font-size:14px; font-weight:600; color:#0D2138; margin-bottom:3px; }
+        .flag-meta  { font-size:12px; color:#6B7280; margin-bottom:9px; }
+        .flag-reason-box {
+            background:#FFF7F5; border:1px solid rgba(240,90,40,0.2);
+            border-radius:6px; padding:10px 14px; margin-bottom:10px;
+        }
+        .flag-reason-label { font-size:11px; font-weight:600; color:#6B7280; margin-bottom:3px; text-transform:uppercase; letter-spacing:0.04em; }
+        .flag-reason-text  { font-size:13px; color:#0D2138; }
+        .flag-notes { font-size:12px; color:#6B7280; font-style:italic; margin-top:4px; }
+        .flag-card-ref {
+            background:#F7F8FA; border:1px solid rgba(13,33,56,0.08);
+            border-radius:6px; padding:9px 13px;
+            display:flex; align-items:center; gap:10px;
+        }
+        .flag-card-ref-left { flex:1; min-width:0; }
+        .flag-card-ref-title { font-size:13px; font-weight:500; color:#0D2138; }
+        .flag-card-ref-meta  { font-size:11px; color:#6B7280; margin-top:2px; }
+        .flag-actions { display:flex; flex-direction:column; gap:6px; flex-shrink:0; }
+        .btn-resolve {
+            background:#27B5E8; color:#fff; border:none; border-radius:6px;
+            padding:7px 14px; font-size:12px; font-weight:500; cursor:pointer; white-space:nowrap;
+        }
+        .btn-resolve:hover { background:#1fa3d4; }
+        .btn-contact {
+            background:none; border:1px solid rgba(13,33,56,0.1); color:#6B7280;
+            border-radius:6px; padding:7px 13px; font-size:12px; cursor:pointer;
+        }
+        .btn-contact:hover { border-color:#0D2138; color:#0D2138; }
+        .btn-view-item {
+            background:none; border:1px solid rgba(13,33,56,0.1); color:#27B5E8;
+            border-radius:6px; padding:7px 13px; font-size:12px; cursor:pointer;
+        }
+        .resolved-pill {
+            display:inline-flex; align-items:center; gap:4px;
+            background:#EAF3DE; color:#27500A; border-radius:4px;
+            padding:3px 9px; font-size:11px; font-weight:500;
+        }
+        .overdue-banner {
+            background:#FCEBEB; border:1px solid #F09595; border-radius:10px;
+            padding:14px 18px; margin:0 24px 20px;
+        }
+        .overdue-banner-title { font-size:13px; font-weight:600; color:#501313; margin-bottom:4px; }
+        .overdue-banner-text  { font-size:12px; color:#791F1F; margin-bottom:10px; }
+        .overdue-btns { display:flex; gap:8px; }
+        .btn-overdue {
+            font-size:12px; padding:5px 13px;
+            border:1px solid #F09595; border-radius:5px;
+            background:#fff; color:#501313; cursor:pointer;
+        }
+        .empty-queue { text-align:center; padding:56px 24px; color:#6B7280; font-size:14px; }
+        .empty-queue-icon { font-size:32px; margin-bottom:12px; }
+        .stat-num.red { color:#A32D2D; }
+    </style>
 </head>
 <body>
-    <nav class="global-nav" style="position:relative;">
-        <div class="nav-top">
-            <a href="../index.html" class="nav-brand">Fortude Repository</a>
-            <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
-            <div class="nav-actions">
-                <a href="queue.html" class="btn-queue-nav" style="background:rgba(255,255,255,0.15);color:#fff;">Approval queue</a>
-                <a href="../submit.html" class="btn-submit-nav">+ Submit</a>
-            </div>
-        </div>
-    </nav>
-    <div id="searchOverlay" style="display:none;position:absolute;top:56px;left:50%;transform:translateX(-50%);width:420px;z-index:200;background:#fff;border:1px solid rgba(13,33,56,0.1);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.12);">
-        <div id="searchResults"></div>
-    </div>
 
-    <div class="queue-hero">
-        <div class="queue-hero-left">
-            <h1>Approval queue</h1>
-            <p>Knowledge coordinator view — review and publish submitted collateral</p>
-        </div>
-        <button class="btn-submit-nav" onclick="showAddManual()">+ Add manually</button>
-    </div>
-
-    <div class="queue-stats">
-        <div class="queue-stat">
-            <div class="queue-stat-num orange" id="stat-pending">3</div>
-            <div class="queue-stat-lbl">Pending review</div>
-        </div>
-        <div class="queue-stat">
-            <div class="queue-stat-num cyan">11</div>
-            <div class="queue-stat-lbl">Published this month</div>
-        </div>
-        <div class="queue-stat">
-            <div class="queue-stat-num red">2</div>
-            <div class="queue-stat-lbl">Overdue review</div>
-        </div>
-        <div class="queue-stat">
-            <div class="queue-stat-num">5</div>
-            <div class="queue-stat-lbl">Active owners</div>
+<nav class="global-nav" style="position:relative;">
+    <div class="nav-top">
+        <a href="../index.html" class="nav-brand">Fortude Repository</a>
+        <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
+        <div class="nav-actions">
+            <a href="queue.html" class="btn-queue-nav" style="background:rgba(255,255,255,0.15);color:#fff;">Approval queue</a>
+            <a href="../submit.html" class="btn-submit-nav">+ Submit</a>
         </div>
     </div>
+</nav>
+<div id="searchOverlay" style="display:none;position:absolute;top:56px;left:50%;transform:translateX(-50%);width:420px;z-index:200;background:#fff;border:1px solid rgba(13,33,56,0.1);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.12);">
+    <div id="searchResults"></div>
+</div>
 
+<div class="queue-hero">
+    <div class="queue-hero-left">
+        <h1>Approval queue</h1>
+        <p>Knowledge coordinator view — review submissions and manage flagged content</p>
+    </div>
+    <button class="btn-submit-nav" onclick="alert('Opens submit form pre-filled for coordinator use.')">+ Add manually</button>
+</div>
+
+<!-- Stats -->
+<div class="queue-stats">
+    <div class="queue-stat">
+        <div class="queue-stat-num orange" id="stat-pending">3</div>
+        <div class="queue-stat-lbl">Pending review</div>
+    </div>
+    <div class="queue-stat">
+        <div class="queue-stat-num cyan">11</div>
+        <div class="queue-stat-lbl">Published this month</div>
+    </div>
+    <div class="queue-stat">
+        <div class="queue-stat-num red" id="stat-flags">4</div>
+        <div class="queue-stat-lbl">Open flags</div>
+    </div>
+    <div class="queue-stat">
+        <div class="queue-stat-num red">2</div>
+        <div class="queue-stat-lbl">Overdue review</div>
+    </div>
+</div>
+
+<!-- Tabs -->
+<div class="queue-tabs">
+    <div class="queue-tab active" onclick="switchQueueTab(this,'tab-submissions')">
+        Submissions <span class="tab-badge" id="badge-submissions">3</span>
+    </div>
+    <div class="queue-tab" onclick="switchQueueTab(this,'tab-flags')">
+        Flagged items <span class="tab-badge" id="badge-flags">4</span>
+    </div>
+    <div class="queue-tab" onclick="switchQueueTab(this,'tab-overdue')">
+        Overdue reviews <span class="tab-badge">2</span>
+    </div>
+</div>
+
+<!-- ── TAB: SUBMISSIONS ── -->
+<div class="tab-panel active" id="tab-submissions">
     <div class="queue-body">
         <div class="queue-filters">
             <div class="queue-filter active" onclick="filterQueue(this,'all')">All</div>
@@ -55,152 +157,256 @@
             <div class="queue-filter" onclick="filterQueue(this,'approved')">Approved</div>
             <div class="queue-filter" onclick="filterQueue(this,'rejected')">Rejected</div>
         </div>
-
-        <div id="queue-list">
-            <!-- Populated by JS -->
-        </div>
-
-        <div id="queue-empty" style="display:none;text-align:center;padding:60px 24px;color:var(--muted);font-size:14px;">
+        <div id="queue-list"></div>
+        <div id="queue-empty" style="display:none;" class="empty-queue">
+            <div class="empty-queue-icon">📭</div>
             No submissions match this filter.
         </div>
     </div>
+</div>
 
-    <!-- Overdue review alert -->
-    <div style="margin:0 24px 24px;background:#FCEBEB;border:1px solid #F09595;border-radius:10px;padding:14px 18px;">
-        <div style="font-size:13px;font-weight:600;color:#501313;margin-bottom:4px;">⚠ 2 items are overdue for review</div>
-        <div style="font-size:12px;color:#791F1F;">M3 vs Oracle Battlecard (due Mar 2026) and Cybersecurity & Compliance Overview (due Apr 2026) have passed their review date. Please action these or contact the relevant Knowledge Owner.</div>
-        <div style="margin-top:10px;display:flex;gap:8px;">
-            <button onclick="alert('Opening M3 vs Oracle Battlecard...')" style="font-size:12px;padding:5px 13px;border:1px solid #F09595;border-radius:5px;background:#fff;color:#501313;cursor:pointer;">Review M3 vs Oracle</button>
-            <button onclick="alert('Opening Cybersecurity Overview...')" style="font-size:12px;padding:5px 13px;border:1px solid #F09595;border-radius:5px;background:#fff;color:#501313;cursor:pointer;">Review Cybersecurity Overview</button>
+<!-- ── TAB: FLAGGED ITEMS ── -->
+<div class="tab-panel" id="tab-flags">
+    <div class="queue-body">
+        <div class="queue-filters">
+            <div class="queue-filter active" onclick="filterFlags(this,'all')">All</div>
+            <div class="queue-filter" onclick="filterFlags(this,'open')">Open</div>
+            <div class="queue-filter" onclick="filterFlags(this,'resolved')">Resolved</div>
+        </div>
+        <div id="flag-list"></div>
+        <div id="flag-empty" style="display:none;" class="empty-queue">
+            <div class="empty-queue-icon">✅</div>
+            No flagged items match this filter.
         </div>
     </div>
+</div>
 
-    <footer class="footer"><p>&copy; 2026 Fortude. Knowledge Repository v3.0 — Admin view</p></footer>
+<!-- ── TAB: OVERDUE REVIEWS ── -->
+<div class="tab-panel" id="tab-overdue">
+    <div class="queue-body">
+        <div class="overdue-banner">
+            <div class="overdue-banner-title">⚠ 2 items are overdue for their scheduled review</div>
+            <div class="overdue-banner-text">These items have passed their review due date. Please review and confirm whether they are still current, or update them before re-publishing.</div>
+        </div>
+        <div class="queue-card">
+            <div class="queue-avatar" style="background:#FAEEDA;color:#854F0B;">RJ</div>
+            <div class="queue-content">
+                <div class="queue-title">M3 vs Oracle — Implementation Battlecard</div>
+                <div class="queue-submitter">Owner: Rajan Jayawardena · Sales · Overdue since Mar 2026</div>
+                <div class="queue-tags">
+                    <span class="queue-tag practice">Sales</span>
+                    <span class="queue-tag region">UK · EU</span>
+                    <span class="queue-tag" style="background:#FCEBEB;color:#501313;">Overdue</span>
+                </div>
+                <div class="queue-divider">
+                    <div class="queue-preview">Competitive battlecard for M3 vs Oracle ERP deals. Under review since September 2025 — needs verification that competitive data is still accurate for 2026.</div>
+                </div>
+            </div>
+            <div class="queue-actions">
+                <button class="btn-approve" onclick="alert('Marking as reviewed and current.')">Mark current</button>
+                <button class="btn-preview" onclick="alert('Opening SharePoint item.')">Open file</button>
+                <button class="btn-reject" onclick="alert('Archiving item.')">Archive</button>
+            </div>
+        </div>
+        <div class="queue-card">
+            <div class="queue-avatar" style="background:#FAEEDA;color:#854F0B;">NF</div>
+            <div class="queue-content">
+                <div class="queue-title">Cybersecurity &amp; Compliance — Service Overview</div>
+                <div class="queue-submitter">Owner: Nadia Farook · Digital & AI Advisory · Overdue since Apr 2026</div>
+                <div class="queue-tags">
+                    <span class="queue-tag practice">Digital & AI Advisory</span>
+                    <span class="queue-tag region">UK · EU · Americas</span>
+                    <span class="queue-tag" style="background:#FCEBEB;color:#501313;">Overdue</span>
+                </div>
+                <div class="queue-divider">
+                    <div class="queue-preview">Service overview for cybersecurity and compliance consulting. Published October 2025 — regulatory references need checking for 2026 compliance frameworks.</div>
+                </div>
+            </div>
+            <div class="queue-actions">
+                <button class="btn-approve" onclick="alert('Marking as reviewed and current.')">Mark current</button>
+                <button class="btn-preview" onclick="alert('Opening SharePoint item.')">Open file</button>
+                <button class="btn-reject" onclick="alert('Archiving item.')">Archive</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script src="../assets/js/repository.js"></script>
-    <script src="../assets/js/search.js"></script>
-    <script>
-    var QUEUE_DATA = [
-        {
-            id: 'q1', status: 'pending',
-            title: 'ANZ Q2 2026 — Data & AI Market Landscape',
-            submitter: 'Rajan Jayawardena', initials: 'RJ',
-            practice: 'Data & AI', region: 'ANZ', type: 'Intelligence Report',
-            ago: '2 hours ago', tag: 'new',
-            summary: 'Covers competitive shifts in the ANZ data services market, key client movement and positioning opportunities for Fortude\'s Data & AI practice in Q2 2026.'
-        },
-        {
-            id: 'q2', status: 'pending',
-            title: 'Automation Practice — UK Client Win Summary',
-            submitter: 'Maya Lowe', initials: 'ML',
-            practice: 'Automation', region: 'UK', type: 'Case Study',
-            ago: '1 day ago', tag: 'pending',
-            summary: 'Summary of three client wins in UK manufacturing sector, including deal context and replicable solution patterns for presales use.'
-        },
-        {
-            id: 'q3', status: 'pending',
-            title: 'Managed Services — AMEA Regional Performance Report',
-            submitter: 'Sameera Alwis', initials: 'SA',
-            practice: 'Managed Services', region: 'AMEA', type: 'Market Research',
-            ago: '2 days ago', tag: 'pending',
-            summary: 'Quarterly performance overview for AMEA managed services accounts, flagging renewal risks and upsell pipeline for leadership review.'
-        },
-        {
-            id: 'q4', status: 'approved',
-            title: 'Digital Maturity Model v3',
-            submitter: 'Nadia Farook', initials: 'NF',
-            practice: 'Digital & AI Advisory', region: 'Global', type: 'Framework',
-            ago: '1 week ago', tag: 'approved',
-            summary: 'Updated version of the Digital Maturity Model incorporating new AI readiness dimensions and revised scoring methodology.'
-        },
-        {
-            id: 'q5', status: 'rejected',
-            title: 'BC Migration Case Study — Draft',
-            submitter: 'James Holden', initials: 'JH',
-            practice: 'Business Central & D365', region: 'UK', type: 'Case Study',
-            ago: '3 days ago', tag: 'rejected',
-            summary: 'Early draft of a BC migration case study. Returned for further review — client approval for naming not yet confirmed.'
-        }
-    ];
+<footer class="footer"><p>&copy; 2026 Fortude. Knowledge Repository v3.0 — Admin view</p></footer>
 
-    var currentFilter = 'all';
+<script src="../assets/js/repository.js"></script>
+<script src="../assets/js/search.js"></script>
+<script>
+// ── SUBMISSIONS DATA ──
+var QUEUE_DATA = [
+    { id:'q1', status:'pending',  title:'ANZ Q2 2026 — Data & AI Market Landscape',        submitter:'Rajan Jayawardena', initials:'RJ', practice:'Data & AI',           region:'ANZ',  type:'Intelligence Report', ago:'2 hours ago', tag:'new',      summary:'Covers competitive shifts in the ANZ data services market, key client movement and positioning opportunities for the Data & AI practice in Q2 2026.' },
+    { id:'q2', status:'pending',  title:'Automation Practice — UK Client Win Summary',       submitter:'Maya Lowe',         initials:'ML', practice:'Automation',           region:'UK',   type:'Case Study',          ago:'1 day ago',   tag:'pending',  summary:'Summary of three client wins in UK manufacturing including deal context and replicable solution patterns for presales use.' },
+    { id:'q3', status:'pending',  title:'Managed Services — AMEA Regional Performance',     submitter:'Sameera Alwis',     initials:'SA', practice:'Managed Services',     region:'AMEA', type:'Market Research',     ago:'2 days ago',  tag:'pending',  summary:'Quarterly performance overview for AMEA managed services accounts, flagging renewal risks and upsell pipeline for leadership review.' },
+    { id:'q4', status:'approved', title:'Digital Maturity Model v3',                         submitter:'Nadia Farook',      initials:'NF', practice:'Digital & AI Advisory',region:'Global','type':'Framework',         ago:'1 week ago',  tag:'approved', summary:'Updated version of the Digital Maturity Model incorporating new AI readiness dimensions and revised scoring methodology.' },
+    { id:'q5', status:'rejected', title:'BC Migration Case Study — Draft',                   submitter:'James Holden',      initials:'JH', practice:'Business Central',     region:'UK',   type:'Case Study',          ago:'3 days ago',  tag:'rejected', summary:'Early draft of a BC migration case study. Returned — client approval for naming not yet confirmed.' },
+];
 
-    function renderQueue(filter) {
-        var filtered = filter === 'all' ? QUEUE_DATA : QUEUE_DATA.filter(function(q){ return q.status === filter; });
-        var list = document.getElementById('queue-list');
-        var empty = document.getElementById('queue-empty');
-        if (!filtered.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
-        empty.style.display = 'none';
-        list.innerHTML = filtered.map(function(q) {
-            var tagStyles = {
-                'new':      'background:#FAECE7;color:#712B13',
-                'pending':  'background:#FAEEDA;color:#854F0B',
-                'approved': 'background:#EAF3DE;color:#27500A',
-                'rejected': 'background:#FCEBEB;color:#501313'
-            };
-            var tagLabels = { 'new':'New','pending':'Pending','approved':'Approved','rejected':'Rejected' };
-            var actions = '';
-            if (q.status === 'pending') {
-                actions = '<button class="btn-approve" onclick="approveItem(\''+q.id+'\')">Approve →</button>' +
-                          '<button class="btn-preview" onclick="alert(\'Opening preview for: '+q.title+'\')">Preview</button>' +
-                          '<button class="btn-reject" onclick="rejectItem(\''+q.id+'\')">Reject</button>';
-            } else if (q.status === 'approved') {
-                actions = '<button class="btn-preview" onclick="alert(\'Viewing live item\')">View live</button>';
-            } else {
-                actions = '<button class="btn-preview" onclick="alert(\'Returning to submitter...\')">Return</button>';
-            }
-            return '<div class="queue-card" id="qcard-'+q.id+'">' +
-                '<div class="queue-avatar">'+q.initials+'</div>' +
-                '<div class="queue-content">' +
-                  '<div class="queue-title">'+q.title+'</div>' +
-                  '<div class="queue-submitter">Submitted by '+q.submitter+' · '+q.practice+' · '+q.ago+'</div>' +
-                  '<div class="queue-tags">' +
-                    '<span class="queue-tag practice">'+q.practice+'</span>' +
-                    '<span class="queue-tag region">'+q.region+'</span>' +
-                    '<span class="queue-tag type">'+q.type+'</span>' +
-                    '<span class="queue-tag" style="'+tagStyles[q.tag]+'">'+tagLabels[q.tag]+'</span>' +
-                  '</div>' +
-                  '<div class="queue-divider"><div class="queue-preview">'+q.summary+'</div></div>' +
-                '</div>' +
-                '<div class="queue-actions">'+actions+'</div>' +
-              '</div>';
-        }).join('');
-    }
+// ── FLAGS DATA ──
+var FLAG_DATA = [
+    {
+        id:'f1', status:'open',
+        flaggedBy:'Priya Nair', initials:'PN', role:'Presales Lead, ANZ', ago:'3 hours ago',
+        reason:'Information is inaccurate',
+        notes:'The pricing tier on slide 4 is outdated — the ANZ rate card changed in January 2026. This is being used in active proposals.',
+        card:{ title:'Resource Augmentation — Proposal Template', practice:'Infor M3 & CloudSuite', type:'Proposal', date:'Mar 2026', reviewDue:'Sep 2026', href:'../practices/infor-m3-cloudsuite.html' }
+    },
+    {
+        id:'f2', status:'open',
+        flaggedBy:'Marcus Lee', initials:'ML', role:'Delivery Lead, UK', ago:'1 day ago',
+        reason:'Superseded by newer version',
+        notes:'A v2 framework was published last month but the old one is still appearing here. Colleagues are downloading the wrong version.',
+        card:{ title:'Data Governance Framework v1', practice:'Data & AI', type:'Framework', date:'Jan 2024', reviewDue:'N/A', href:'../practices/data-ai.html' }
+    },
+    {
+        id:'f3', status:'open',
+        flaggedBy:'Tara Singh', initials:'TS', role:'Presales Coordinator', ago:'2 days ago',
+        reason:'Broken SharePoint link',
+        notes:'The SharePoint button returns a permissions error for everyone in the Presales team. The file may have been moved.',
+        card:{ title:'Charlie — Product Demo Script & Recording', practice:'Presales', type:'Demo', date:'Mar 2026', reviewDue:'Sep 2026', href:'../enablers/presales.html' }
+    },
+    {
+        id:'f4', status:'open',
+        flaggedBy:'Aisha Kapoor', initials:'AK', role:'Automation Practice Lead', ago:'4 days ago',
+        reason:'Incorrect practice or subcategory',
+        notes:'This battlecard is listed under Automation but it covers IDP which should sit under Services, not as a standalone product card.',
+        card:{ title:'IDP — Competitive Battlecard', practice:'Automation', type:'Battlecard', date:'Feb 2026', reviewDue:'Aug 2026', href:'../practices/automation.html' }
+    },
+    {
+        id:'f5', status:'resolved',
+        flaggedBy:'Sofia Mendes', initials:'SM', role:'Marketing Manager', ago:'2 weeks ago',
+        reason:'Needs rebranding to current template',
+        notes:'Logo on the cover slide was the old version. Fixed and re-uploaded.',
+        card:{ title:'Fortude Corporate Overview Deck', practice:'Sales', type:'Overview Deck', date:'Jan 2026', reviewDue:'Jul 2026', href:'../enablers/sales.html' }
+    },
+];
 
-    function filterQueue(el, filter) {
-        currentFilter = filter;
-        document.querySelectorAll('.queue-filter').forEach(function(f){ f.classList.remove('active'); });
-        el.classList.add('active');
-        renderQueue(filter);
-    }
+var currentQueueFilter = 'all';
+var currentFlagFilter  = 'all';
 
-    function approveItem(id) {
-        var item = QUEUE_DATA.find(function(q){ return q.id === id; });
-        if (item) {
-            item.status = 'approved';
-            item.tag = 'approved';
-            var pending = QUEUE_DATA.filter(function(q){ return q.status === 'pending'; }).length;
-            document.getElementById('stat-pending').textContent = pending;
-            renderQueue(currentFilter);
-        }
-    }
+// ── RENDER SUBMISSIONS ──
+function renderQueue(filter) {
+    var filtered = filter === 'all' ? QUEUE_DATA : QUEUE_DATA.filter(function(q){ return q.status === filter; });
+    var list  = document.getElementById('queue-list');
+    var empty = document.getElementById('queue-empty');
+    if (!filtered.length) { list.innerHTML=''; empty.style.display='block'; return; }
+    empty.style.display='none';
+    var tagS = { new:'background:#FAECE7;color:#712B13', pending:'background:#FAEEDA;color:#854F0B', approved:'background:#EAF3DE;color:#27500A', rejected:'background:#FCEBEB;color:#501313' };
+    var tagL = { new:'New', pending:'Pending', approved:'Approved', rejected:'Rejected' };
+    list.innerHTML = filtered.map(function(q){
+        var actions = q.status === 'pending'
+            ? '<button class="btn-approve" onclick="approveItem(\''+q.id+'\')">Approve →</button><button class="btn-preview" onclick="alert(\'Opening preview...\')">Preview</button><button class="btn-reject" onclick="rejectItem(\''+q.id+'\')">Reject</button>'
+            : q.status === 'approved'
+            ? '<button class="btn-preview">View live</button>'
+            : '<button class="btn-preview">Return</button>';
+        return '<div class="queue-card" id="qcard-'+q.id+'">'+
+            '<div class="queue-avatar">'+q.initials+'</div>'+
+            '<div class="queue-content">'+
+              '<div class="queue-title">'+q.title+'</div>'+
+              '<div class="queue-submitter">Submitted by '+q.submitter+' · '+q.ago+'</div>'+
+              '<div class="queue-tags">'+
+                '<span class="queue-tag practice">'+q.practice+'</span>'+
+                '<span class="queue-tag region">'+q.region+'</span>'+
+                '<span class="queue-tag type">'+q.type+'</span>'+
+                '<span class="queue-tag" style="'+tagS[q.tag]+'">'+tagL[q.tag]+'</span>'+
+              '</div>'+
+              '<div class="queue-divider"><div class="queue-preview">'+q.summary+'</div></div>'+
+            '</div>'+
+            '<div class="queue-actions">'+actions+'</div>'+
+          '</div>';
+    }).join('');
+}
 
-    function rejectItem(id) {
-        var item = QUEUE_DATA.find(function(q){ return q.id === id; });
-        if (item) {
-            item.status = 'rejected';
-            item.tag = 'rejected';
-            var pending = QUEUE_DATA.filter(function(q){ return q.status === 'pending'; }).length;
-            document.getElementById('stat-pending').textContent = pending;
-            renderQueue(currentFilter);
-        }
-    }
+function filterQueue(el, filter) {
+    currentQueueFilter = filter;
+    document.querySelectorAll('#tab-submissions .queue-filter').forEach(function(f){ f.classList.remove('active'); });
+    el.classList.add('active');
+    renderQueue(filter);
+}
 
-    function showAddManual() {
-        alert('Manual add: opens the submit form pre-filled for coordinator use.');
-    }
+function approveItem(id) {
+    var item = QUEUE_DATA.find(function(q){ return q.id===id; });
+    if (item) { item.status='approved'; item.tag='approved'; updateStats(); renderQueue(currentQueueFilter); }
+}
+function rejectItem(id) {
+    var item = QUEUE_DATA.find(function(q){ return q.id===id; });
+    if (item) { item.status='rejected'; item.tag='rejected'; updateStats(); renderQueue(currentQueueFilter); }
+}
 
-    document.addEventListener('DOMContentLoaded', function(){ renderQueue('all'); });
-    </script>
+// ── RENDER FLAGS ──
+function renderFlags(filter) {
+    var filtered = filter === 'all' ? FLAG_DATA : FLAG_DATA.filter(function(f){ return f.status === filter; });
+    var list  = document.getElementById('flag-list');
+    var empty = document.getElementById('flag-empty');
+    if (!filtered.length) { list.innerHTML=''; empty.style.display='block'; return; }
+    empty.style.display='none';
+    list.innerHTML = filtered.map(function(f){
+        var resolved = f.status === 'resolved';
+        var actions = resolved
+            ? '<span class="resolved-pill">✓ Resolved</span>'
+            : '<button class="btn-resolve" onclick="resolveFlag(\''+f.id+'\')">Mark resolved</button>'+
+              '<button class="btn-view-item" onclick="window.location.href=\''+f.card.href+'\'">View item</button>'+
+              '<button class="btn-contact" onclick="alert(\'Opening email to '+f.flaggedBy+'...\')">Contact flagger</button>';
+        return '<div class="flag-card'+(resolved?' resolved':'')+'">'+
+            '<div class="flag-avatar">'+f.initials+'</div>'+
+            '<div class="flag-content">'+
+              '<div class="flag-title">Flag: '+f.reason+'</div>'+
+              '<div class="flag-meta">Flagged by '+f.flaggedBy+' ('+f.role+') · '+f.ago+'</div>'+
+              '<div class="flag-reason-box">'+
+                '<div class="flag-reason-label">Reason</div>'+
+                '<div class="flag-reason-text">'+f.reason+'</div>'+
+                (f.notes ? '<div class="flag-notes">'+f.notes+'</div>' : '')+
+              '</div>'+
+              '<div class="flag-card-ref">'+
+                '<div class="flag-card-ref-left">'+
+                  '<div class="flag-card-ref-title">'+f.card.title+'</div>'+
+                  '<div class="flag-card-ref-meta">'+f.card.practice+' · '+f.card.type+' · Published '+f.card.date+(f.card.reviewDue!=='N/A' ? ' · Review due '+f.card.reviewDue : '')+'</div>'+
+                '</div>'+
+              '</div>'+
+            '</div>'+
+            '<div class="flag-actions">'+actions+'</div>'+
+          '</div>';
+    }).join('');
+}
+
+function filterFlags(el, filter) {
+    currentFlagFilter = filter;
+    document.querySelectorAll('#tab-flags .queue-filter').forEach(function(f){ f.classList.remove('active'); });
+    el.classList.add('active');
+    renderFlags(filter);
+}
+
+function resolveFlag(id) {
+    var item = FLAG_DATA.find(function(f){ return f.id===id; });
+    if (item) { item.status='resolved'; updateStats(); renderFlags(currentFlagFilter); }
+}
+
+// ── STATS ──
+function updateStats() {
+    var pending = QUEUE_DATA.filter(function(q){ return q.status==='pending'; }).length;
+    var openFlags = FLAG_DATA.filter(function(f){ return f.status==='open'; }).length;
+    document.getElementById('stat-pending').textContent  = pending;
+    document.getElementById('stat-flags').textContent    = openFlags;
+    document.getElementById('badge-submissions').textContent = pending;
+    document.getElementById('badge-flags').textContent   = openFlags;
+}
+
+// ── TAB SWITCHING ──
+function switchQueueTab(el, panelId) {
+    document.querySelectorAll('.queue-tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+    el.classList.add('active');
+    document.getElementById(panelId).classList.add('active');
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+    renderQueue('all');
+    renderFlags('all');
+    updateStats();
+});
+</script>
 </body>
 </html>
