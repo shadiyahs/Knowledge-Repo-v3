@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortude Knowledge Repository</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body { display: flex; flex-direction: column; min-height: 100vh; }
+        .choice-section { flex: 1; }
+    </style>
+</head>
+<body>
+    <nav class="global-nav" style="position:relative;">
+        <div class="nav-top">
+            <a href="index.html" class="nav-brand">Fortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
+            <div class="nav-actions">
+                <a href="admin/queue.html" class="btn-queue-nav">Approval queue</a>
+                <a href="submit.html" class="btn-submit-nav">+ Submit</a>
+            </div>
+        </div>
+    </nav>
+    <div id="whats-new-target"></div>
+    <div id="searchOverlay" style="display:none;background:#fff;border:1px solid rgba(13,33,56,0.1);border-radius:8px;position:absolute;top:56px;left:50%;transform:translateX(-50%);width:420px;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,0.12);">
+        <div id="searchResults" style="padding:6px 0;"></div>
+    </div>
+
+    <section class="choice-hero">
+        <h1>Fortude <span style="color:var(--cyan);font-weight:600;">Knowledge Repository</span></h1>
+        <p>Collateral, intelligence and resources for practices and enablement teams across the organisation</p>
+    </section>
+
+    <main class="choice-section">
+        <p class="choice-label">Where would you like to go?</p>
+        <div class="choice-grid">
+            <a href="practices/index.html" class="choice-card practices">
+                <div class="choice-icon">⚙️</div>
+                <div class="choice-title">Practices</div>
+                <p class="choice-desc">Collateral organised by practice area — products, services, frameworks and delivery resources for each Fortude capability.</p>
+                <div class="choice-subs">
+                    <a href="practices/infor-m3-cloudsuite.html" class="choice-sub-item">Infor M3 &amp; CloudSuite</a>
+                    <a href="practices/business-central.html"    class="choice-sub-item">Business Central &amp; Dynamics 365</a>
+                    <a href="practices/data-ai.html"             class="choice-sub-item">Data &amp; AI</a>
+                    <a href="practices/automation.html"          class="choice-sub-item">Automation</a>
+                    <a href="practices/low-code.html"            class="choice-sub-item">Low Code Application Development</a>
+                    <a href="practices/managed-services.html"    class="choice-sub-item">Managed Services</a>
+                    <a href="practices/advisory.html"            class="choice-sub-item">Digital &amp; AI Advisory</a>
+                </div>
+                <div class="choice-arrow">Browse Practices →</div>
+            </a>
+            <a href="enablers/index.html" class="choice-card enablers">
+                <div class="choice-icon">📣</div>
+                <div class="choice-title">Enablers</div>
+                <p class="choice-desc">Intelligence, sales, presales and marketing collateral to support regional leadership and go-to-market teams.</p>
+                <div class="choice-subs">
+                    <a href="enablers/insights-intelligence.html" class="choice-sub-item">Insights &amp; Intelligence</a>
+                    <a href="enablers/sales.html"                 class="choice-sub-item">Sales</a>
+                    <a href="enablers/presales.html"              class="choice-sub-item">Presales</a>
+                    <a href="enablers/marketing.html"             class="choice-sub-item">Marketing</a>
+                    <a href="enablers/partners.html"              class="choice-sub-item">Partners</a>
+                </div>
+                <div class="choice-arrow">Browse Enablers →</div>
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Fortude. Knowledge Repository v3.0 &nbsp;·&nbsp;
+           <a href="submit.html" style="color:rgba(255,255,255,0.4);">Submit content</a> &nbsp;·&nbsp;
+           <a href="admin/queue.html" style="color:rgba(255,255,255,0.4);">Admin queue</a>
+        </p>
+    </footer>
+
+    <script src="assets/js/repository.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script>
+    // Override What's New hrefs for root-level context
+    document.addEventListener('DOMContentLoaded', function() {
+        var target = document.getElementById('whats-new-target');
+        if (!target) return;
+        var items = [
+            { title: "I&I April 2026",                tag: "new",     type: "Intelligence Report", practice: "Insights & Intelligence", ago: "2 days ago",  href: "enablers/insights-intelligence.html" },
+            { title: "OCM Playbook",                  tag: "new",     type: "Playbook",            practice: "Digital & AI Advisory",   ago: "4 days ago",  href: "practices/advisory.html" },
+            { title: "Manufacturing Sector Playbook", tag: "updated", type: "Playbook",            practice: "Sales",                   ago: "1 week ago",  href: "enablers/sales.html" },
+            { title: "Digital Maturity Model v3",     tag: "updated", type: "Framework",           practice: "Digital & AI Advisory",   ago: "2 weeks ago", href: "practices/advisory.html" },
+        ];
+        var html = '<div class="whats-new-strip"><span class="wn-label">What\'s new</span><div class="wn-items">';
+        items.forEach(function(n) {
+            html += '<a href="'+n.href+'" class="wn-item">';
+            html += '<span class="wn-tag '+n.tag+'">'+(n.tag==='new'?'New':'Updated')+'</span>';
+            html += '<span class="wn-title">'+n.title+'</span>';
+            html += '<span class="wn-sub">'+n.practice+' · '+n.ago+'</span>';
+            html += '</a>';
+        });
+        html += '</div></div>';
+        target.innerHTML = html;
+    });
+    // Root-level search uses same paths minus ../
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof SEARCH_INDEX !== 'undefined') {
+            SEARCH_INDEX.forEach(function(item) {
+                item.href = item.href.replace('../', '');
+            });
+        }
+    });
+    </script>
+</body>
+</html>

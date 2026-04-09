@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enablers — Fortude Repository</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+    .index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 16px; padding: 28px 24px; }
+    .index-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; text-decoration: none; color: var(--navy); display: flex; flex-direction: column; gap: 10px; border-top: 3px solid var(--orange); transition: all 0.2s; }
+    .index-card:hover { box-shadow: 0 4px 20px rgba(13,33,56,0.1); transform: translateY(-2px); }
+    .index-card-title { font-size: 15px; font-weight: 600; }
+    .index-card-desc  { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .index-card-subs  { display: flex; flex-wrap: wrap; gap: 5px; }
+    .index-sub-tag { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 11px; color: var(--muted); }
+    .index-card-link  { font-size: 13px; font-weight: 600; color: var(--orange); margin-top: auto; }
+    </style>
+</head>
+<body>
+    <nav class="global-nav" style="position:relative;">
+        <div class="nav-top">
+            <a href="../index.html" class="nav-brand">Fortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
+            <div class="nav-actions">
+                <a href="../admin/queue.html" class="btn-queue-nav">Approval queue</a>
+                <a href="../submit.html" class="btn-submit-nav">+ Submit</a>
+            </div>
+        </div>
+        <div class="nav-tabs">
+            <a href="../practices/index.html" class="nav-tab">Practices</a>
+            <a href="index.html" class="nav-tab active">Enablers</a>
+        </div>
+    </nav>
+    <div id="whats-new-target"></div>
+    <div id="searchOverlay" style="display:none;position:absolute;top:56px;left:50%;transform:translateX(-50%);width:420px;z-index:200;background:#fff;border:1px solid rgba(13,33,56,0.1);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.12);">
+        <div id="searchResults"></div>
+    </div>
+
+    <div style="background:var(--navy);padding:20px 24px;">
+        <h1 style="color:#fff;font-size:20px;font-weight:500;margin-bottom:4px;">Enablers</h1>
+        <p style="color:rgba(255,255,255,0.45);font-size:13px;">Select an enabler to browse collateral by subcategory</p>
+    </div>
+
+    <main class="index-grid">
+        <a href="insights-intelligence.html" class="index-card">
+            <div class="index-card-title">Insights &amp; Intelligence</div>
+            <div class="index-card-desc">Market intelligence, product bridge content and strategic research for leadership and practice teams.</div>
+            <div class="index-card-subs"><span class="index-sub-tag">Unplugged</span><span class="index-sub-tag">Product Bridge</span><span class="index-sub-tag">Market Research</span></div>
+            <div class="index-card-link">Browse →</div>
+        </a>
+        <a href="sales.html" class="index-card">
+            <div class="index-card-title">Sales</div>
+            <div class="index-card-desc">Onboarding, playbooks, battlecards, case studies and engagement tools for regional sales teams.</div>
+            <div class="index-card-subs"><span class="index-sub-tag">Battlecards</span><span class="index-sub-tag">Decks</span><span class="index-sub-tag">Case Studies</span><span class="index-sub-tag">Playbooks</span></div>
+            <div class="index-card-link">Browse →</div>
+        </a>
+        <a href="presales.html" class="index-card">
+            <div class="index-card-title">Presales</div>
+            <div class="index-card-desc">Proposal templates, digital maturity assessment kits and product demo resources.</div>
+            <div class="index-card-subs"><span class="index-sub-tag">Proposals & SoW</span><span class="index-sub-tag">Assessment Kits</span><span class="index-sub-tag">Demo Scripts</span></div>
+            <div class="index-card-link">Browse →</div>
+        </a>
+        <a href="marketing.html" class="index-card">
+            <div class="index-card-title">Marketing</div>
+            <div class="index-card-desc">Webinar kits, white papers, thought leadership, infographics, event resources and brand assets.</div>
+            <div class="index-card-subs"><span class="index-sub-tag">White Papers</span><span class="index-sub-tag">Brand Assets</span><span class="index-sub-tag">Webinar Kits</span></div>
+            <div class="index-card-link">Browse →</div>
+        </a>
+        <a href="partners.html" class="index-card">
+            <div class="index-card-title">Partners</div>
+            <div class="index-card-desc">Partner collateral, co-sell materials and alliance resources.</div>
+            <div class="index-card-subs"><span class="index-sub-tag">Coming soon</span></div>
+            <div class="index-card-link">Browse →</div>
+        </a>
+    </main>
+
+    <footer class="footer"><p>&copy; 2026 Fortude. Knowledge Repository v3.0</p></footer>
+    <script src="../assets/js/repository.js"></script>
+    <script src="../assets/js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infor M3 & CloudSuite — Fortude Repository</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <nav class="global-nav" style="position:relative;">
+        <div class="nav-top">
+            <a href="../index.html" class="nav-brand">Fortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
+            <div class="nav-actions">
+                <a href="../admin/queue.html" class="btn-queue-nav">Approval queue</a>
+                <a href="../submit.html" class="btn-submit-nav">+ Submit</a>
+            </div>
+        </div>
+        <div class="nav-tabs">
+            <a href="../practices/index.html" class="nav-tab active">Practices</a>
+            <a href="../enablers/index.html" class="nav-tab">Enablers</a>
+        </div>
+    </nav>
+    <div id="whats-new-target"></div>
+    <div id="searchOverlay" style="display:none;position:absolute;top:56px;left:50%;transform:translateX(-50%);width:420px;z-index:200;">
+        <div id="searchResults"></div>
+    </div>
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="index.html">Practices</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Infor M3 & CloudSuite</span>
+    </div>
+    <div class="repo-layout">
+        <aside class="sidebar">
+            <div class="sidebar-group"><div class="sidebar-group-label">Practices</div><a href="../practices/infor-m3-cloudsuite.html" class="sidebar-item active">Infor M3 & CloudSuite</a><a href="../practices/business-central.html" class="sidebar-item">Business Central & D365</a><a href="../practices/data-ai.html" class="sidebar-item">Data & AI</a><a href="../practices/automation.html" class="sidebar-item">Automation</a><a href="../practices/low-code.html" class="sidebar-item">Low Code App Dev</a><a href="../practices/managed-services.html" class="sidebar-item">Managed Services</a><a href="../practices/advisory.html" class="sidebar-item">Digital & AI Advisory</a></div><div class="sidebar-group"><div class="sidebar-group-label">Enablers</div><a href="../enablers/insights-intelligence.html" class="sidebar-item">Insights & Intelligence</a><a href="../enablers/sales.html" class="sidebar-item">Sales</a><a href="../enablers/presales.html" class="sidebar-item">Presales</a><a href="../enablers/marketing.html" class="sidebar-item">Marketing</a><a href="../enablers/partners.html" class="sidebar-item">Partners</a></div><div id="sidebar-owner-footer"></div><script>
+      document.addEventListener("DOMContentLoaded",function(){
+        var o = OWNERS["infor-m3"];
+        if(o) document.getElementById("sidebar-owner-footer").innerHTML =
+          '<div class="sidebar-owner"><div class="sidebar-owner-label">Section owner</div>' +
+          '<div class="sidebar-owner-name">'+o.name+'</div>' +
+          '<a class="sidebar-owner-email" href="mailto:'+o.email+'">'+o.email+'</a></div>';
+      });
+    </script>
+        </aside>
+        <main>
+            <div class="practice-hero">
+                <h1>Infor M3 & CloudSuite</h1>
+                <p>Products, services and delivery collateral for M3 and CloudSuite implementations across all regions.</p>
+            </div>
+            <div class="sub-tabs-bar">
+                <div class="sub-tab active" onclick="switchTab(this,'products')">Products</div>
+<div class="sub-tab" onclick="switchTab(this,'services')">Services</div>
+
+            </div>
+            <div class="sub-panel active" id="panel-products">
+            <div class="cards-area"><div class="cards-grid"><div class="collateral-card status-current" id="card-im3-p1">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-battlecard">Battlecard</span>
+        <span class="region-pill">ANZ</span><span class="region-pill">UK</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Sales</span><span class="audience-pill">Presales</span></div>
+      <div class="card-title">Fortest — M3 Test Automation</div>
+      <div class="card-summary">Competitive positioning for Fortest within M3 environments, covering automation coverage, cost savings and integration depth vs native tools.</div>
+      <div class="card-related"><span class="card-related-label">Related: </span><a href="#">Charlie M3 Agent Overview</a></div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Jan 2026</span>
+          <span class="card-review-due">Review due Jul 2026</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('im3-p1','Fortest — M3 Test Automation','Jan 2026','Jul 2026')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div>
+<div class="collateral-card status-current" id="card-im3-p2">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-overview">Product Overview</span>
+        <span class="region-pill">Global</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Sales</span><span class="audience-pill">Presales</span></div>
+      <div class="card-title">Charlie M3 Agent — Product Overview</div>
+      <div class="card-summary">Full product overview of Charlie M3 Agent including use cases, deployment architecture and client outcomes for the Infor CloudSuite ecosystem.</div>
+      <div class="card-related"><span class="card-related-label">Related: </span><a href="#">Charlie — Data & AI Overview</a></div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Mar 2026</span>
+          <span class="card-review-due">Review due Sep 2026</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('im3-p2','Charlie M3 Agent — Product Overview','Mar 2026','Sep 2026')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div>
+<div class="collateral-card status-review" id="card-im3-p3">
+      <div class="card-top-row">
+        <span class="status-badge review">Under Review</span>
+        <span class="type-badge type-report">Technical Guide</span>
+        <span class="region-pill">UK</span><span class="region-pill">EU</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Delivery</span></div>
+      <div class="card-title">Industry Test Packs — Manufacturing</div>
+      <div class="card-summary">Technical reference for manufacturing-specific test packs in Infor M3, covering process coverage maps and configuration standards. Under review for M3 2026 release.</div>
+      <div class="card-related"><span class="card-related-label">Related: </span><a href="#">Fortest — BC & D365 Battlecard</a></div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Nov 2025</span>
+          <span class="card-review-due">Review due May 2026</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('im3-p3','Industry Test Packs — Manufacturing','Nov 2025','May 2026')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div></div></div>
+        </div>
+<div class="sub-panel" id="panel-services">
+            <div class="cards-area"><div class="cards-grid"><div class="collateral-card status-current" id="card-im3-s1">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-casestudy">Case Study</span>
+        <span class="region-pill">UK</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Sales</span><span class="audience-pill">Leadership</span></div>
+      <div class="card-title">UK Client Win — M3 Rollout</div>
+      <div class="card-summary">Case study of a complex M3 rollout across three UK sites, covering timeline, resourcing model and measurable client outcomes.</div>
+      <div class="card-related"><span class="card-related-label">Related: </span><a href="#">ANZ Manufacturing Win</a></div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Feb 2026</span>
+          <span class="card-review-due">Review due Feb 2027</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('im3-s1','UK Client Win — M3 Rollout','Feb 2026','Feb 2027')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div>
+<div class="collateral-card status-current" id="card-im3-s2">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-overview">Engagement Overview</span>
+        <span class="region-pill">Global</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Sales</span><span class="audience-pill">Presales</span></div>
+      <div class="card-title">Technical Consultancy — Engagement Overview</div>
+      <div class="card-summary">Fortude's technical consultancy engagement model for M3, covering scope, commercials and delivery framework.</div>
+      <div class="card-related"><span class="card-related-label">Related: </span><a href="#">Resource Augmentation Proposal</a></div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Jan 2026</span>
+          <span class="card-review-due">Review due Jan 2027</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('im3-s2','Technical Consultancy — Engagement Overview','Jan 2026','Jan 2027')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div>
+<div class="collateral-card status-current" id="card-im3-s3">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-proposal">Proposal</span>
+        <span class="region-pill">ANZ</span><span class="region-pill">AMEA</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Presales</span></div>
+      <div class="card-title">Resource Augmentation — Proposal Template</div>
+      <div class="card-summary">Editable proposal template for resource augmentation engagements including rate card structure and onboarding timelines.</div>
+      
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Mar 2026</span>
+          <span class="card-review-due">Review due Sep 2026</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('im3-s3','Resource Augmentation — Proposal Template','Mar 2026','Sep 2026')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div></div></div>
+        </div>
+
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="flag-modal">
+        <div class="modal-box">
+            <div class="modal-title">Flag content for review</div>
+            <div class="modal-sub">Your flag goes to the knowledge coordinator for action within 48 hours.</div>
+            <div id="modal-form">
+                <div class="modal-card-ref">
+                    <div class="modal-card-ref-label">Flagging</div>
+                    <div class="modal-card-ref-title" id="modal-card-title"></div>
+                    <div class="modal-card-ref-meta" id="modal-card-date"></div>
+                </div>
+                <div class="modal-field">
+                    <label class="modal-label">Reason</label>
+                    <select class="modal-select">
+                        <option value="">Select a reason...</option>
+                        <option>Information is inaccurate</option>
+                        <option>Superseded by newer version</option>
+                        <option>Broken SharePoint link</option>
+                        <option>Incorrect practice or subcategory</option>
+                        <option>Needs rebranding to current template</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="modal-field">
+                    <label class="modal-label">Notes <span>(optional)</span></label>
+                    <textarea class="modal-textarea" placeholder="Any context to help the coordinator act quickly..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-modal-cancel" onclick="closeFlagModal()">Cancel</button>
+                    <button class="btn-modal-submit" onclick="submitFlag()">Submit flag</button>
+                </div>
+            </div>
+            <div id="modal-success" style="display:none;" class="modal-success">
+                <div class="modal-success-icon">✅</div>
+                <div class="modal-success-title">Flag submitted</div>
+                <div class="modal-success-text">The knowledge coordinator will review this within 48 hours. Thank you for helping keep the repository accurate.</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Fortude. Knowledge Repository v3.0 &nbsp;·&nbsp; <a href="../submit.html" style="color:rgba(255,255,255,0.4);">Submit content</a> &nbsp;·&nbsp; <a href="../admin/queue.html" style="color:rgba(255,255,255,0.4);">Admin queue</a></p>
+    </footer>
+
+    <script src="../assets/js/repository.js"></script>
+    <script src="../assets/js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales — Fortude Repository</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <nav class="global-nav" style="position:relative;">
+        <div class="nav-top">
+            <a href="../index.html" class="nav-brand">Fortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
+            <div class="nav-actions">
+                <a href="../admin/queue.html" class="btn-queue-nav">Approval queue</a>
+                <a href="../submit.html" class="btn-submit-nav">+ Submit</a>
+            </div>
+        </div>
+        <div class="nav-tabs">
+            <a href="../practices/index.html" class="nav-tab">Practices</a>
+            <a href="../enablers/index.html" class="nav-tab active">Enablers</a>
+        </div>
+    </nav>
+    <div id="whats-new-target"></div>
+    <div id="searchOverlay" style="display:none;position:absolute;top:56px;left:50%;transform:translateX(-50%);width:420px;z-index:200;">
+        <div id="searchResults"></div>
+    </div>
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="index.html">Enablers</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Sales</span>
+    </div>
+    <div class="repo-layout">
+        <aside class="sidebar">
+            <div class="sidebar-group"><div class="sidebar-group-label">Practices</div><a href="../practices/infor-m3-cloudsuite.html" class="sidebar-item">Infor M3 & CloudSuite</a><a href="../practices/business-central.html" class="sidebar-item">Business Central & D365</a><a href="../practices/data-ai.html" class="sidebar-item">Data & AI</a><a href="../practices/automation.html" class="sidebar-item">Automation</a><a href="../practices/low-code.html" class="sidebar-item">Low Code App Dev</a><a href="../practices/managed-services.html" class="sidebar-item">Managed Services</a><a href="../practices/advisory.html" class="sidebar-item">Digital & AI Advisory</a></div><div class="sidebar-group"><div class="sidebar-group-label">Enablers</div><a href="../enablers/insights-intelligence.html" class="sidebar-item">Insights & Intelligence</a><a href="../enablers/sales.html" class="sidebar-item active">Sales</a><a href="../enablers/presales.html" class="sidebar-item">Presales</a><a href="../enablers/marketing.html" class="sidebar-item">Marketing</a><a href="../enablers/partners.html" class="sidebar-item">Partners</a></div><div id="sidebar-owner-footer"></div><script>
+      document.addEventListener("DOMContentLoaded",function(){
+        var o = OWNERS["sales"];
+        if(o) document.getElementById("sidebar-owner-footer").innerHTML =
+          '<div class="sidebar-owner"><div class="sidebar-owner-label">Section owner</div>' +
+          '<div class="sidebar-owner-name">'+o.name+'</div>' +
+          '<a class="sidebar-owner-email" href="mailto:'+o.email+'">'+o.email+'</a></div>';
+      });
+    </script>
+        </aside>
+        <main>
+            <div class="practice-hero">
+                <h1>Sales</h1>
+                <p>Onboarding, playbooks, battlecards, case studies and engagement tools for regional sales teams.</p>
+            </div>
+            <div class="sub-tabs-bar">
+                <div class="sub-tab active" onclick="switchTab(this,'battlecards')">Battlecards</div>
+<div class="sub-tab" onclick="switchTab(this,'decks')">Decks</div>
+<div class="sub-tab" onclick="switchTab(this,'case-studies')">Case Studies</div>
+<div class="sub-tab" onclick="switchTab(this,'playbooks')">Industry Playbooks</div>
+<div class="sub-tab" onclick="switchTab(this,'onboarding')">Onboarding</div>
+<div class="sub-tab" onclick="switchTab(this,'scripts')">Scripts</div>
+<div class="sub-tab" onclick="switchTab(this,'objection-handling')">Objection Handling</div>
+<div class="sub-tab" onclick="switchTab(this,'engagement-models')">Engagement Model Overviews</div>
+
+            </div>
+            <div class="sub-panel active" id="panel-battlecards">
+            <div class="cards-area"><div class="cards-grid"><div class="collateral-card status-current" id="card-sal-b1">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-battlecard">Battlecard</span>
+        <span class="region-pill">Global</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Sales</span></div>
+      <div class="card-title">Fortude vs SAP — Data & AI</div>
+      <div class="card-summary">Head-to-head competitive positioning against SAP's data and AI offerings, covering differentiators, objection responses and win themes.</div>
+      <div class="card-related"><span class="card-related-label">Related: </span><a href="#">Data & AI Practice Pitch Deck</a></div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Mar 2026</span>
+          <span class="card-review-due">Review due Sep 2026</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('sal-b1','Fortude vs SAP — Data & AI','Mar 2026','Sep 2026')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div>
+<div class="collateral-card status-review" id="card-sal-b2">
+      <div class="card-top-row">
+        <span class="status-badge review">Under Review</span>
+        <span class="type-badge type-battlecard">Battlecard</span>
+        <span class="region-pill">UK</span><span class="region-pill">EU</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Sales</span></div>
+      <div class="card-title">M3 vs Oracle — Implementation</div>
+      <div class="card-summary">Competitive battlecard for M3 vs Oracle ERP deals focusing on implementation speed, TCO and industry-specific capability depth. Currently under review.</div>
+      
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Sep 2025</span>
+          <span class="card-review-due">Review due Mar 2026</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('sal-b2','M3 vs Oracle — Implementation','Sep 2025','Mar 2026')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div>
+<div class="collateral-card status-current" id="card-sal-b3">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-battlecard">Battlecard</span>
+        <span class="region-pill">AMEA</span><span class="region-pill">ANZ</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Sales</span></div>
+      <div class="card-title">Automation vs Competitors — IDP</div>
+      <div class="card-summary">Battlecard positioning Fortude's IDP offering against key competitors, covering accuracy benchmarks, integration capability and commercial positioning.</div>
+      
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Feb 2026</span>
+          <span class="card-review-due">Review due Aug 2026</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('sal-b3','Automation vs Competitors — IDP','Feb 2026','Aug 2026')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div></div></div>
+        </div>
+<div class="sub-panel" id="panel-decks">
+            <div class="cards-area"><div class="cards-grid"><div class="collateral-card status-current" id="card-sal-d1">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-overview">Overview Deck</span>
+        <span class="region-pill">Global</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Sales</span><span class="audience-pill">Presales</span></div>
+      <div class="card-title">Fortude Corporate Overview Deck</div>
+      <div class="card-summary">Corporate overview presentation covering Fortude's practices, regions, client base and differentiators. Updated Q1 2026.</div>
+      
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Jan 2026</span>
+          <span class="card-review-due">Review due Jul 2026</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('sal-d1','Fortude Corporate Overview Deck','Jan 2026','Jul 2026')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div>
+<div class="collateral-card status-current" id="card-sal-d2">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-overview">Overview Deck</span>
+        <span class="region-pill">Global</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Sales</span><span class="audience-pill">Presales</span></div>
+      <div class="card-title">Data & AI Practice Pitch Deck</div>
+      <div class="card-summary">Practice-level pitch deck for Data & AI opportunities, covering capability map, product suite, client outcomes and engagement model.</div>
+      <div class="card-related"><span class="card-related-label">Related: </span><a href="#">Charlie Platform Overview</a></div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Feb 2026</span>
+          <span class="card-review-due">Review due Aug 2026</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('sal-d2','Data & AI Practice Pitch Deck','Feb 2026','Aug 2026')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div></div></div>
+        </div>
+<div class="sub-panel" id="panel-case-studies">
+            <div class="cards-area"><div class="cards-grid"><div class="collateral-card status-current" id="card-sal-c1">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-casestudy">Case Study</span>
+        <span class="region-pill">ANZ</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Sales</span><span class="audience-pill">Leadership</span></div>
+      <div class="card-title">ANZ Manufacturing Win — Infor M3</div>
+      <div class="card-summary">Client success story covering a large-scale M3 implementation in ANZ manufacturing, with outcome metrics, timeline and solution highlights.</div>
+      <div class="card-related"><span class="card-related-label">Related: </span><a href="#">UK Retail Automation Win</a></div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Feb 2026</span>
+          <span class="card-review-due">Review due Feb 2027</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('sal-c1','ANZ Manufacturing Win — Infor M3','Feb 2026','Feb 2027')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div>
+<div class="collateral-card status-current" id="card-sal-c2">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-casestudy">Case Study</span>
+        <span class="region-pill">UK</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Sales</span><span class="audience-pill">Leadership</span></div>
+      <div class="card-title">UK Retail Automation Win</div>
+      <div class="card-summary">Case study for an intelligent automation engagement in UK retail, covering IDP deployment outcomes and ROI achieved within the first 12 months.</div>
+      <div class="card-related"><span class="card-related-label">Related: </span><a href="#">ANZ Manufacturing Win</a></div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Jan 2026</span>
+          <span class="card-review-due">Review due Jan 2027</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('sal-c2','UK Retail Automation Win','Jan 2026','Jan 2027')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div></div></div>
+        </div>
+<div class="sub-panel" id="panel-playbooks">
+            <div class="cards-area"><div class="cards-grid"><div class="collateral-card status-current" id="card-sal-p1">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-playbook">Playbook</span>
+        <span class="region-pill">ANZ</span><span class="region-pill">UK</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Sales</span></div>
+      <div class="card-title">Manufacturing Sector Playbook</div>
+      <div class="card-summary">Sales playbook for manufacturing sector deals, covering buying patterns, key personas, solution mapping and competitive landscape.</div>
+      
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Mar 2026</span>
+          <span class="card-review-due">Review due Sep 2026</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('sal-p1','Manufacturing Sector Playbook','Mar 2026','Sep 2026')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div></div></div>
+        </div>
+<div class="sub-panel" id="panel-onboarding">
+            <div class="cards-area"><div class="empty-state">
+                <div class="empty-icon">🗂️</div>
+                <div class="empty-title">No collateral here yet</div>
+                <div class="empty-desc">
+                    This subcategory is waiting for its first submission.<br>
+                    If you own collateral for <strong>Sales — Onboarding</strong>,
+                    submit it and it will be live within 48 hours.
+                </div>
+                <a href="../submit.html" class="btn-empty">+ Submit the first item →</a>
+            </div></div>
+        </div>
+<div class="sub-panel" id="panel-scripts">
+            <div class="cards-area"><div class="empty-state">
+                <div class="empty-icon">🗂️</div>
+                <div class="empty-title">No collateral here yet</div>
+                <div class="empty-desc">
+                    This subcategory is waiting for its first submission.<br>
+                    If you own collateral for <strong>Sales — Scripts</strong>,
+                    submit it and it will be live within 48 hours.
+                </div>
+                <a href="../submit.html" class="btn-empty">+ Submit the first item →</a>
+            </div></div>
+        </div>
+<div class="sub-panel" id="panel-objection-handling">
+            <div class="cards-area"><div class="empty-state">
+                <div class="empty-icon">🗂️</div>
+                <div class="empty-title">No collateral here yet</div>
+                <div class="empty-desc">
+                    This subcategory is waiting for its first submission.<br>
+                    If you own collateral for <strong>Sales — Objection Handling</strong>,
+                    submit it and it will be live within 48 hours.
+                </div>
+                <a href="../submit.html" class="btn-empty">+ Submit the first item →</a>
+            </div></div>
+        </div>
+<div class="sub-panel" id="panel-engagement-models">
+            <div class="cards-area"><div class="empty-state">
+                <div class="empty-icon">🗂️</div>
+                <div class="empty-title">No collateral here yet</div>
+                <div class="empty-desc">
+                    This subcategory is waiting for its first submission.<br>
+                    If you own collateral for <strong>Sales — Engagement Model Overviews</strong>,
+                    submit it and it will be live within 48 hours.
+                </div>
+                <a href="../submit.html" class="btn-empty">+ Submit the first item →</a>
+            </div></div>
+        </div>
+
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="flag-modal">
+        <div class="modal-box">
+            <div class="modal-title">Flag content for review</div>
+            <div class="modal-sub">Your flag goes to the knowledge coordinator for action within 48 hours.</div>
+            <div id="modal-form">
+                <div class="modal-card-ref">
+                    <div class="modal-card-ref-label">Flagging</div>
+                    <div class="modal-card-ref-title" id="modal-card-title"></div>
+                    <div class="modal-card-ref-meta" id="modal-card-date"></div>
+                </div>
+                <div class="modal-field">
+                    <label class="modal-label">Reason</label>
+                    <select class="modal-select">
+                        <option value="">Select a reason...</option>
+                        <option>Information is inaccurate</option>
+                        <option>Superseded by newer version</option>
+                        <option>Broken SharePoint link</option>
+                        <option>Incorrect practice or subcategory</option>
+                        <option>Needs rebranding to current template</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="modal-field">
+                    <label class="modal-label">Notes <span>(optional)</span></label>
+                    <textarea class="modal-textarea" placeholder="Any context to help the coordinator act quickly..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-modal-cancel" onclick="closeFlagModal()">Cancel</button>
+                    <button class="btn-modal-submit" onclick="submitFlag()">Submit flag</button>
+                </div>
+            </div>
+            <div id="modal-success" style="display:none;" class="modal-success">
+                <div class="modal-success-icon">✅</div>
+                <div class="modal-success-title">Flag submitted</div>
+                <div class="modal-success-text">The knowledge coordinator will review this within 48 hours. Thank you for helping keep the repository accurate.</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Fortude. Knowledge Repository v3.0 &nbsp;·&nbsp; <a href="../submit.html" style="color:rgba(255,255,255,0.4);">Submit content</a> &nbsp;·&nbsp; <a href="../admin/queue.html" style="color:rgba(255,255,255,0.4);">Admin queue</a></p>
+    </footer>
+
+    <script src="../assets/js/repository.js"></script>
+    <script src="../assets/js/search.js"></script>
+</body>
+</html>

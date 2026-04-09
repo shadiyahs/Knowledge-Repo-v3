@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Content — Fortude Repository</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <nav class="global-nav" style="position:relative;">
+        <div class="nav-top">
+            <a href="index.html" class="nav-brand">Fortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
+            <div class="nav-actions">
+                <a href="admin/queue.html" class="btn-queue-nav">Approval queue</a>
+                <a href="submit.html" class="btn-submit-nav">+ Submit</a>
+            </div>
+        </div>
+    </nav>
+    <div id="whats-new-target"></div>
+    <div id="searchOverlay" style="display:none;position:absolute;top:56px;left:50%;transform:translateX(-50%);width:420px;z-index:200;background:#fff;border:1px solid rgba(13,33,56,0.1);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.12);">
+        <div id="searchResults"></div>
+    </div>
+
+    <div class="submit-hero">
+        <h1>Submit content for review</h1>
+        <p>Your submission will be reviewed by the knowledge coordinator and published within 48 hours. Your file saves directly to the relevant SharePoint library.</p>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Submit content</span>
+    </div>
+
+    <main class="submit-body">
+        <div id="submit-form-wrapper">
+            <div class="form-card">
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="form-label">Report / document title</label>
+                        <input type="text" class="form-input" id="field-title" placeholder="e.g. ANZ Q2 Data & AI Market Insights">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Practice or enabler</label>
+                        <select class="form-select" id="field-practice">
+                            <option value="">Select...</option>
+                            <optgroup label="Practices">
+                                <option>Infor M3 &amp; CloudSuite</option>
+                                <option>Business Central &amp; Dynamics 365</option>
+                                <option>Data &amp; AI</option>
+                                <option>Automation</option>
+                                <option>Low Code Application Development</option>
+                                <option>Managed Services</option>
+                                <option>Digital &amp; AI Advisory</option>
+                            </optgroup>
+                            <optgroup label="Enablers">
+                                <option>Insights &amp; Intelligence</option>
+                                <option>Sales</option>
+                                <option>Presales</option>
+                                <option>Marketing</option>
+                                <option>Partners</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row-4">
+                    <div class="form-field">
+                        <label class="form-label">Content type</label>
+                        <select class="form-select" id="field-type">
+                            <option value="">Type...</option>
+                            <option>Battlecard</option>
+                            <option>Framework</option>
+                            <option>Case Study</option>
+                            <option>Proposal</option>
+                            <option>Playbook</option>
+                            <option>Product Overview</option>
+                            <option>Engagement Overview</option>
+                            <option>Overview Deck</option>
+                            <option>Intelligence Report</option>
+                            <option>Market Research</option>
+                            <option>Accelerator</option>
+                            <option>Demo</option>
+                            <option>White Paper</option>
+                            <option>Brand Guide</option>
+                            <option>Webinar Kit</option>
+                            <option>Event Kit</option>
+                            <option>Assessment Kit</option>
+                            <option>SoW Template</option>
+                            <option>Technical Guide</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Region</label>
+                        <select class="form-select" id="field-region">
+                            <option value="">Region...</option>
+                            <option>Global</option>
+                            <option>ANZ</option>
+                            <option>UK</option>
+                            <option>EU</option>
+                            <option>Americas</option>
+                            <option>AMEA</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Intended audience</label>
+                        <select class="form-select" id="field-audience">
+                            <option value="">For...</option>
+                            <option>Sales</option>
+                            <option>Presales</option>
+                            <option>Delivery</option>
+                            <option>Leadership</option>
+                            <option>Marketing</option>
+                            <option>Partners</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" id="field-status">
+                            <option value="Current">Current</option>
+                            <option value="Under Review">Under Review</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Summary <span>(shown on the repository card — 30 to 60 words)</span></label>
+                    <textarea class="form-textarea" id="field-summary" placeholder="Brief description of what this covers and who it is most relevant for. Aim for 2–3 sentences."></textarea>
+                    <div id="word-count" style="font-size:11px;color:var(--muted);margin-top:4px;">0 words</div>
+                </div>
+                <div class="upload-zone" id="upload-zone">
+                    <div class="upload-title">Drop your file here</div>
+                    <p>PDF, PPTX, DOCX — max 50 MB</p>
+                    <p><span class="upload-link" onclick="document.getElementById('file-input').click()">Browse files</span></p>
+                    <input type="file" id="file-input" style="display:none" accept=".pdf,.pptx,.docx,.ppt,.doc">
+                    <div class="upload-dest" id="upload-dest">File will be saved to SharePoint: Practice / Subcategory / Region / 2026</div>
+                </div>
+                <div class="form-footer">
+                    <a href="index.html" class="btn-cancel">Cancel</a>
+                    <div class="form-footer-right">
+                        <button class="btn-draft" onclick="saveDraft()">Save draft</button>
+                        <button class="btn-submit-form" onclick="submitForm()">Submit for review →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guidelines-card">
+                <button class="guidelines-toggle" onclick="toggleGuidelines()">
+                    <div>
+                        <div class="guidelines-toggle-title">Contributor guidelines</div>
+                        <div class="guidelines-toggle-sub">What makes a good submission — read before submitting</div>
+                    </div>
+                    <span class="guidelines-chevron" id="guidelines-chevron">▼</span>
+                </button>
+                <div class="guidelines-body" id="guidelines-body">
+                    <div class="guidelines-grid">
+                        <div>
+                            <div class="guidelines-section-title">File naming convention</div>
+                            <div class="guidelines-code">Practice — Type — Topic — Region — YYYY-MM</div>
+                            <div class="guidelines-example">e.g. Data & AI — Proposal — AI Platform Modernization — UK — 2026-03</div>
+                        </div>
+                        <div>
+                            <div class="guidelines-section-title">Accepted file formats</div>
+                            <ul class="guidelines-list">
+                                <li>PDF — preferred for all final documents</li>
+                                <li>PPTX — presentations and pitch decks</li>
+                                <li>DOCX — editable templates and playbooks</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="guidelines-section-title">Writing a good summary</div>
+                            <ul class="guidelines-list">
+                                <li>2–3 sentences, 30–60 words</li>
+                                <li>State what the content covers</li>
+                                <li>State who it is most relevant for</li>
+                                <li>Avoid internal jargon and acronyms</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="guidelines-section-title">Publish-ready checklist</div>
+                            <ul class="guidelines-list checklist">
+                                <li>On the current Fortude brand template</li>
+                                <li>No placeholder or draft text remaining</li>
+                                <li>Spell-checked and internally reviewed</li>
+                                <li>No outdated logos, colours or taglines</li>
+                                <li>Client names cleared for external use</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="guidelines-note">
+                        <div class="guidelines-note-title">Review timeline</div>
+                        <div class="guidelines-note-text">Submissions are reviewed within 48 hours. You will be notified by email when your content is published or if changes are needed before it can go live. Contact your section Knowledge Owner if you have questions before submitting.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="submit-success" style="display:none;text-align:center;padding:60px 24px;">
+            <div style="font-size:48px;margin-bottom:16px;">✅</div>
+            <h2 style="font-size:22px;font-weight:600;color:var(--navy);margin-bottom:10px;">Submission received</h2>
+            <p style="font-size:14px;color:var(--muted);max-width:400px;margin:0 auto 24px;line-height:1.7;">Your content has been saved to the relevant SharePoint library and added to the approval queue. The knowledge coordinator will review it within 48 hours.</p>
+            <a href="index.html" class="btn-empty">Return to repository</a>
+        </div>
+    </main>
+
+    <footer class="footer"><p>&copy; 2026 Fortude. Knowledge Repository v3.0</p></footer>
+
+    <script src="assets/js/repository.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script>
+    // Word count
+    document.getElementById('field-summary').addEventListener('input', function() {
+        var words = this.value.trim().split(/\s+/).filter(function(w){ return w.length > 0; });
+        var count = words.length;
+        var el = document.getElementById('word-count');
+        el.textContent = count + ' word' + (count !== 1 ? 's' : '') + (count < 30 ? ' — aim for 30–60' : count > 60 ? ' — a little long, consider trimming' : ' — good length');
+        el.style.color = (count >= 30 && count <= 60) ? '#27500A' : 'var(--muted)';
+    });
+
+    // Update SharePoint destination preview
+    function updateDest() {
+        var p = document.getElementById('field-practice').value || 'Practice';
+        var t = document.getElementById('field-type').value || 'Subcategory';
+        var r = document.getElementById('field-region').value || 'Region';
+        document.getElementById('upload-dest').textContent = 'Saved to SharePoint: ' + p + ' / ' + t + ' / ' + r + ' / 2026';
+    }
+    ['field-practice','field-type','field-region'].forEach(function(id) {
+        document.getElementById(id).addEventListener('change', updateDest);
+    });
+
+    // File upload feedback
+    document.getElementById('file-input').addEventListener('change', function() {
+        if (this.files.length) {
+            document.getElementById('upload-zone').style.borderColor = 'var(--cyan)';
+            document.getElementById('upload-zone').querySelector('.upload-title').textContent = '✓ ' + this.files[0].name;
+        }
+    });
+
+    function saveDraft() {
+        alert('Draft saved. You can return to complete and submit this later.');
+    }
+
+    function submitForm() {
+        var required = ['field-title','field-practice','field-type','field-region','field-audience','field-summary'];
+        var missing = required.filter(function(id){ return !document.getElementById(id).value.trim(); });
+        if (missing.length) {
+            alert('Please complete all required fields before submitting.');
+            document.getElementById(missing[0]).focus();
+            return;
+        }
+        document.getElementById('submit-form-wrapper').style.display = 'none';
+        document.getElementById('submit-success').style.display = 'block';
+        window.scrollTo(0,0);
+    }
+    </script>
+</body>
+</html>

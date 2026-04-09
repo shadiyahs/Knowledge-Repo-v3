@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approval Queue — Fortude Repository</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <nav class="global-nav" style="position:relative;">
+        <div class="nav-top">
+            <a href="../index.html" class="nav-brand">Fortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
+            <div class="nav-actions">
+                <a href="queue.html" class="btn-queue-nav" style="background:rgba(255,255,255,0.15);color:#fff;">Approval queue</a>
+                <a href="../submit.html" class="btn-submit-nav">+ Submit</a>
+            </div>
+        </div>
+    </nav>
+    <div id="searchOverlay" style="display:none;position:absolute;top:56px;left:50%;transform:translateX(-50%);width:420px;z-index:200;background:#fff;border:1px solid rgba(13,33,56,0.1);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.12);">
+        <div id="searchResults"></div>
+    </div>
+
+    <div class="queue-hero">
+        <div class="queue-hero-left">
+            <h1>Approval queue</h1>
+            <p>Knowledge coordinator view — review and publish submitted collateral</p>
+        </div>
+        <button class="btn-submit-nav" onclick="showAddManual()">+ Add manually</button>
+    </div>
+
+    <div class="queue-stats">
+        <div class="queue-stat">
+            <div class="queue-stat-num orange" id="stat-pending">3</div>
+            <div class="queue-stat-lbl">Pending review</div>
+        </div>
+        <div class="queue-stat">
+            <div class="queue-stat-num cyan">11</div>
+            <div class="queue-stat-lbl">Published this month</div>
+        </div>
+        <div class="queue-stat">
+            <div class="queue-stat-num red">2</div>
+            <div class="queue-stat-lbl">Overdue review</div>
+        </div>
+        <div class="queue-stat">
+            <div class="queue-stat-num">5</div>
+            <div class="queue-stat-lbl">Active owners</div>
+        </div>
+    </div>
+
+    <div class="queue-body">
+        <div class="queue-filters">
+            <div class="queue-filter active" onclick="filterQueue(this,'all')">All</div>
+            <div class="queue-filter" onclick="filterQueue(this,'pending')">Pending</div>
+            <div class="queue-filter" onclick="filterQueue(this,'approved')">Approved</div>
+            <div class="queue-filter" onclick="filterQueue(this,'rejected')">Rejected</div>
+        </div>
+
+        <div id="queue-list">
+            <!-- Populated by JS -->
+        </div>
+
+        <div id="queue-empty" style="display:none;text-align:center;padding:60px 24px;color:var(--muted);font-size:14px;">
+            No submissions match this filter.
+        </div>
+    </div>
+
+    <!-- Overdue review alert -->
+    <div style="margin:0 24px 24px;background:#FCEBEB;border:1px solid #F09595;border-radius:10px;padding:14px 18px;">
+        <div style="font-size:13px;font-weight:600;color:#501313;margin-bottom:4px;">⚠ 2 items are overdue for review</div>
+        <div style="font-size:12px;color:#791F1F;">M3 vs Oracle Battlecard (due Mar 2026) and Cybersecurity & Compliance Overview (due Apr 2026) have passed their review date. Please action these or contact the relevant Knowledge Owner.</div>
+        <div style="margin-top:10px;display:flex;gap:8px;">
+            <button onclick="alert('Opening M3 vs Oracle Battlecard...')" style="font-size:12px;padding:5px 13px;border:1px solid #F09595;border-radius:5px;background:#fff;color:#501313;cursor:pointer;">Review M3 vs Oracle</button>
+            <button onclick="alert('Opening Cybersecurity Overview...')" style="font-size:12px;padding:5px 13px;border:1px solid #F09595;border-radius:5px;background:#fff;color:#501313;cursor:pointer;">Review Cybersecurity Overview</button>
+        </div>
+    </div>
+
+    <footer class="footer"><p>&copy; 2026 Fortude. Knowledge Repository v3.0 — Admin view</p></footer>
+
+    <script src="../assets/js/repository.js"></script>
+    <script src="../assets/js/search.js"></script>
+    <script>
+    var QUEUE_DATA = [
+        {
+            id: 'q1', status: 'pending',
+            title: 'ANZ Q2 2026 — Data & AI Market Landscape',
+            submitter: 'Rajan Jayawardena', initials: 'RJ',
+            practice: 'Data & AI', region: 'ANZ', type: 'Intelligence Report',
+            ago: '2 hours ago', tag: 'new',
+            summary: 'Covers competitive shifts in the ANZ data services market, key client movement and positioning opportunities for Fortude\'s Data & AI practice in Q2 2026.'
+        },
+        {
+            id: 'q2', status: 'pending',
+            title: 'Automation Practice — UK Client Win Summary',
+            submitter: 'Maya Lowe', initials: 'ML',
+            practice: 'Automation', region: 'UK', type: 'Case Study',
+            ago: '1 day ago', tag: 'pending',
+            summary: 'Summary of three client wins in UK manufacturing sector, including deal context and replicable solution patterns for presales use.'
+        },
+        {
+            id: 'q3', status: 'pending',
+            title: 'Managed Services — AMEA Regional Performance Report',
+            submitter: 'Sameera Alwis', initials: 'SA',
+            practice: 'Managed Services', region: 'AMEA', type: 'Market Research',
+            ago: '2 days ago', tag: 'pending',
+            summary: 'Quarterly performance overview for AMEA managed services accounts, flagging renewal risks and upsell pipeline for leadership review.'
+        },
+        {
+            id: 'q4', status: 'approved',
+            title: 'Digital Maturity Model v3',
+            submitter: 'Nadia Farook', initials: 'NF',
+            practice: 'Digital & AI Advisory', region: 'Global', type: 'Framework',
+            ago: '1 week ago', tag: 'approved',
+            summary: 'Updated version of the Digital Maturity Model incorporating new AI readiness dimensions and revised scoring methodology.'
+        },
+        {
+            id: 'q5', status: 'rejected',
+            title: 'BC Migration Case Study — Draft',
+            submitter: 'James Holden', initials: 'JH',
+            practice: 'Business Central & D365', region: 'UK', type: 'Case Study',
+            ago: '3 days ago', tag: 'rejected',
+            summary: 'Early draft of a BC migration case study. Returned for further review — client approval for naming not yet confirmed.'
+        }
+    ];
+
+    var currentFilter = 'all';
+
+    function renderQueue(filter) {
+        var filtered = filter === 'all' ? QUEUE_DATA : QUEUE_DATA.filter(function(q){ return q.status === filter; });
+        var list = document.getElementById('queue-list');
+        var empty = document.getElementById('queue-empty');
+        if (!filtered.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
+        empty.style.display = 'none';
+        list.innerHTML = filtered.map(function(q) {
+            var tagStyles = {
+                'new':      'background:#FAECE7;color:#712B13',
+                'pending':  'background:#FAEEDA;color:#854F0B',
+                'approved': 'background:#EAF3DE;color:#27500A',
+                'rejected': 'background:#FCEBEB;color:#501313'
+            };
+            var tagLabels = { 'new':'New','pending':'Pending','approved':'Approved','rejected':'Rejected' };
+            var actions = '';
+            if (q.status === 'pending') {
+                actions = '<button class="btn-approve" onclick="approveItem(\''+q.id+'\')">Approve →</button>' +
+                          '<button class="btn-preview" onclick="alert(\'Opening preview for: '+q.title+'\')">Preview</button>' +
+                          '<button class="btn-reject" onclick="rejectItem(\''+q.id+'\')">Reject</button>';
+            } else if (q.status === 'approved') {
+                actions = '<button class="btn-preview" onclick="alert(\'Viewing live item\')">View live</button>';
+            } else {
+                actions = '<button class="btn-preview" onclick="alert(\'Returning to submitter...\')">Return</button>';
+            }
+            return '<div class="queue-card" id="qcard-'+q.id+'">' +
+                '<div class="queue-avatar">'+q.initials+'</div>' +
+                '<div class="queue-content">' +
+                  '<div class="queue-title">'+q.title+'</div>' +
+                  '<div class="queue-submitter">Submitted by '+q.submitter+' · '+q.practice+' · '+q.ago+'</div>' +
+                  '<div class="queue-tags">' +
+                    '<span class="queue-tag practice">'+q.practice+'</span>' +
+                    '<span class="queue-tag region">'+q.region+'</span>' +
+                    '<span class="queue-tag type">'+q.type+'</span>' +
+                    '<span class="queue-tag" style="'+tagStyles[q.tag]+'">'+tagLabels[q.tag]+'</span>' +
+                  '</div>' +
+                  '<div class="queue-divider"><div class="queue-preview">'+q.summary+'</div></div>' +
+                '</div>' +
+                '<div class="queue-actions">'+actions+'</div>' +
+              '</div>';
+        }).join('');
+    }
+
+    function filterQueue(el, filter) {
+        currentFilter = filter;
+        document.querySelectorAll('.queue-filter').forEach(function(f){ f.classList.remove('active'); });
+        el.classList.add('active');
+        renderQueue(filter);
+    }
+
+    function approveItem(id) {
+        var item = QUEUE_DATA.find(function(q){ return q.id === id; });
+        if (item) {
+            item.status = 'approved';
+            item.tag = 'approved';
+            var pending = QUEUE_DATA.filter(function(q){ return q.status === 'pending'; }).length;
+            document.getElementById('stat-pending').textContent = pending;
+            renderQueue(currentFilter);
+        }
+    }
+
+    function rejectItem(id) {
+        var item = QUEUE_DATA.find(function(q){ return q.id === id; });
+        if (item) {
+            item.status = 'rejected';
+            item.tag = 'rejected';
+            var pending = QUEUE_DATA.filter(function(q){ return q.status === 'pending'; }).length;
+            document.getElementById('stat-pending').textContent = pending;
+            renderQueue(currentFilter);
+        }
+    }
+
+    function showAddManual() {
+        alert('Manual add: opens the submit form pre-filled for coordinator use.');
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){ renderQueue('all'); });
+    </script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing — Fortude Repository</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <nav class="global-nav" style="position:relative;">
+        <div class="nav-top">
+            <a href="../index.html" class="nav-brand">Fortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
+            <div class="nav-actions">
+                <a href="../admin/queue.html" class="btn-queue-nav">Approval queue</a>
+                <a href="../submit.html" class="btn-submit-nav">+ Submit</a>
+            </div>
+        </div>
+        <div class="nav-tabs">
+            <a href="../practices/index.html" class="nav-tab">Practices</a>
+            <a href="../enablers/index.html" class="nav-tab active">Enablers</a>
+        </div>
+    </nav>
+    <div id="whats-new-target"></div>
+    <div id="searchOverlay" style="display:none;position:absolute;top:56px;left:50%;transform:translateX(-50%);width:420px;z-index:200;">
+        <div id="searchResults"></div>
+    </div>
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="index.html">Enablers</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Marketing</span>
+    </div>
+    <div class="repo-layout">
+        <aside class="sidebar">
+            <div class="sidebar-group"><div class="sidebar-group-label">Practices</div><a href="../practices/infor-m3-cloudsuite.html" class="sidebar-item">Infor M3 & CloudSuite</a><a href="../practices/business-central.html" class="sidebar-item">Business Central & D365</a><a href="../practices/data-ai.html" class="sidebar-item">Data & AI</a><a href="../practices/automation.html" class="sidebar-item">Automation</a><a href="../practices/low-code.html" class="sidebar-item">Low Code App Dev</a><a href="../practices/managed-services.html" class="sidebar-item">Managed Services</a><a href="../practices/advisory.html" class="sidebar-item">Digital & AI Advisory</a></div><div class="sidebar-group"><div class="sidebar-group-label">Enablers</div><a href="../enablers/insights-intelligence.html" class="sidebar-item">Insights & Intelligence</a><a href="../enablers/sales.html" class="sidebar-item">Sales</a><a href="../enablers/presales.html" class="sidebar-item">Presales</a><a href="../enablers/marketing.html" class="sidebar-item active">Marketing</a><a href="../enablers/partners.html" class="sidebar-item">Partners</a></div><div id="sidebar-owner-footer"></div><script>
+      document.addEventListener("DOMContentLoaded",function(){
+        var o = OWNERS["marketing"];
+        if(o) document.getElementById("sidebar-owner-footer").innerHTML =
+          '<div class="sidebar-owner"><div class="sidebar-owner-label">Section owner</div>' +
+          '<div class="sidebar-owner-name">'+o.name+'</div>' +
+          '<a class="sidebar-owner-email" href="mailto:'+o.email+'">'+o.email+'</a></div>';
+      });
+    </script>
+        </aside>
+        <main>
+            <div class="practice-hero">
+                <h1>Marketing</h1>
+                <p>Webinar kits, white papers, thought leadership, infographics, event resources and brand assets.</p>
+            </div>
+            <div class="sub-tabs-bar">
+                <div class="sub-tab active" onclick="switchTab(this,'white-papers')">White Papers & Trend Reports</div>
+<div class="sub-tab" onclick="switchTab(this,'brand')">Brand Style Guide & Assets</div>
+<div class="sub-tab" onclick="switchTab(this,'webinar-kits')">Webinar Kits</div>
+<div class="sub-tab" onclick="switchTab(this,'thought-leadership')">Thought Leadership Blogs</div>
+<div class="sub-tab" onclick="switchTab(this,'infographics')">Infographics</div>
+<div class="sub-tab" onclick="switchTab(this,'event-kits')">Event Kits</div>
+
+            </div>
+            <div class="sub-panel active" id="panel-white-papers">
+            <div class="cards-area"><div class="cards-grid"><div class="collateral-card status-current" id="card-mkt-w1">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-whitepaper">White Paper</span>
+        <span class="region-pill">Global</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Marketing</span><span class="audience-pill">Leadership</span></div>
+      <div class="card-title">The State of AI in ERP — 2026</div>
+      <div class="card-summary">Research-backed white paper on AI adoption in ERP environments across manufacturing and distribution, co-authored with the Data & AI practice.</div>
+      
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Feb 2026</span>
+          <span class="card-review-due">Review due Feb 2027</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('mkt-w1','The State of AI in ERP — 2026','Feb 2026','Feb 2027')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div></div></div>
+        </div>
+<div class="sub-panel" id="panel-brand">
+            <div class="cards-area"><div class="cards-grid"><div class="collateral-card status-current" id="card-mkt-b1">
+      <div class="card-top-row">
+        <span class="status-badge current">Current</span>
+        <span class="type-badge type-brand">Brand Guide</span>
+        <span class="region-pill">Global</span>
+      </div>
+      <div class="card-audience-row"><span class="audience-pill">Marketing</span></div>
+      <div class="card-title">Fortude Brand Style Guide 2026</div>
+      <div class="card-summary">Master brand style guide covering logo usage, colour system, typography, iconography and do/don't guidelines for all Fortude communications.</div>
+      
+      <div class="card-footer">
+        <div class="card-meta">
+          <span class="card-date">Jan 2026</span>
+          <span class="card-review-due">Review due Jan 2027</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-flag" onclick="openFlagModal('mkt-b1','Fortude Brand Style Guide 2026','Jan 2026','Jan 2027')">Flag</button>
+          <a href="#" target="_blank" class="btn-sharepoint"><span class="sp-icon"></span>SharePoint</a>
+        </div>
+      </div>
+    </div></div></div>
+        </div>
+<div class="sub-panel" id="panel-webinar-kits">
+            <div class="cards-area"><div class="empty-state">
+                <div class="empty-icon">🗂️</div>
+                <div class="empty-title">No collateral here yet</div>
+                <div class="empty-desc">
+                    This subcategory is waiting for its first submission.<br>
+                    If you own collateral for <strong>Marketing — Webinar Kits</strong>,
+                    submit it and it will be live within 48 hours.
+                </div>
+                <a href="../submit.html" class="btn-empty">+ Submit the first item →</a>
+            </div></div>
+        </div>
+<div class="sub-panel" id="panel-thought-leadership">
+            <div class="cards-area"><div class="empty-state">
+                <div class="empty-icon">🗂️</div>
+                <div class="empty-title">No collateral here yet</div>
+                <div class="empty-desc">
+                    This subcategory is waiting for its first submission.<br>
+                    If you own collateral for <strong>Marketing — Thought Leadership Blogs</strong>,
+                    submit it and it will be live within 48 hours.
+                </div>
+                <a href="../submit.html" class="btn-empty">+ Submit the first item →</a>
+            </div></div>
+        </div>
+<div class="sub-panel" id="panel-infographics">
+            <div class="cards-area"><div class="empty-state">
+                <div class="empty-icon">🗂️</div>
+                <div class="empty-title">No collateral here yet</div>
+                <div class="empty-desc">
+                    This subcategory is waiting for its first submission.<br>
+                    If you own collateral for <strong>Marketing — Infographics</strong>,
+                    submit it and it will be live within 48 hours.
+                </div>
+                <a href="../submit.html" class="btn-empty">+ Submit the first item →</a>
+            </div></div>
+        </div>
+<div class="sub-panel" id="panel-event-kits">
+            <div class="cards-area"><div class="empty-state">
+                <div class="empty-icon">🗂️</div>
+                <div class="empty-title">No collateral here yet</div>
+                <div class="empty-desc">
+                    This subcategory is waiting for its first submission.<br>
+                    If you own collateral for <strong>Marketing — Event Kits</strong>,
+                    submit it and it will be live within 48 hours.
+                </div>
+                <a href="../submit.html" class="btn-empty">+ Submit the first item →</a>
+            </div></div>
+        </div>
+
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="flag-modal">
+        <div class="modal-box">
+            <div class="modal-title">Flag content for review</div>
+            <div class="modal-sub">Your flag goes to the knowledge coordinator for action within 48 hours.</div>
+            <div id="modal-form">
+                <div class="modal-card-ref">
+                    <div class="modal-card-ref-label">Flagging</div>
+                    <div class="modal-card-ref-title" id="modal-card-title"></div>
+                    <div class="modal-card-ref-meta" id="modal-card-date"></div>
+                </div>
+                <div class="modal-field">
+                    <label class="modal-label">Reason</label>
+                    <select class="modal-select">
+                        <option value="">Select a reason...</option>
+                        <option>Information is inaccurate</option>
+                        <option>Superseded by newer version</option>
+                        <option>Broken SharePoint link</option>
+                        <option>Incorrect practice or subcategory</option>
+                        <option>Needs rebranding to current template</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="modal-field">
+                    <label class="modal-label">Notes <span>(optional)</span></label>
+                    <textarea class="modal-textarea" placeholder="Any context to help the coordinator act quickly..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-modal-cancel" onclick="closeFlagModal()">Cancel</button>
+                    <button class="btn-modal-submit" onclick="submitFlag()">Submit flag</button>
+                </div>
+            </div>
+            <div id="modal-success" style="display:none;" class="modal-success">
+                <div class="modal-success-icon">✅</div>
+                <div class="modal-success-title">Flag submitted</div>
+                <div class="modal-success-text">The knowledge coordinator will review this within 48 hours. Thank you for helping keep the repository accurate.</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Fortude. Knowledge Repository v3.0 &nbsp;·&nbsp; <a href="../submit.html" style="color:rgba(255,255,255,0.4);">Submit content</a> &nbsp;·&nbsp; <a href="../admin/queue.html" style="color:rgba(255,255,255,0.4);">Admin queue</a></p>
+    </footer>
+
+    <script src="../assets/js/repository.js"></script>
+    <script src="../assets/js/search.js"></script>
+</body>
+</html>
