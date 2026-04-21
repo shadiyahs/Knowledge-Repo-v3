@@ -13,7 +13,8 @@ const OWNERS = {
   'sales':          { name: 'Rajan Jayawardena',    email: 'r.jayawardena@fortude.co' },
   'presales':       { name: 'Tara Singh',           email: 't.singh@fortude.co' },
   'marketing':      { name: 'Sofia Mendes',         email: 's.mendes@fortude.co' },
-  'partners':       { name: 'Ben Walsh',            email: 'b.walsh@fortude.co' }
+  'partners':       { name: 'Ben Walsh',            email: 'b.walsh@fortude.co' },
+  'csp-infra':      { name: 'TBC',                    email: 'tbc@fortude.co' }
 };
 
 // Type → CSS class mapping

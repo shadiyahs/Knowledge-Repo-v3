@@ -35,6 +35,10 @@ const SEARCH_INDEX = [
   { title: 'PPPM — Portfolio Management Framework',     type: 'Framework',           practice: 'Digital & AI Advisory',      href: '../practices/advisory.html' },
   { title: 'ICT Infrastructure — Proposal Template',    type: 'Proposal',            practice: 'Digital & AI Advisory',      href: '../practices/advisory.html' },
   { title: 'Integrations & Extensions Strategy',        type: 'Engagement Overview', practice: 'Digital & AI Advisory',      href: '../practices/advisory.html' },
+  // CSP & INFRA
+  { title: 'Cloud Infrastructure Services — Overview',   type: 'Engagement Overview', practice: 'CSP & Infra',  href: '../practices/csp-infra.html' },
+  { title: 'ICT Infrastructure — Proposal Template',     type: 'Proposal',            practice: 'CSP & Infra',  href: '../practices/csp-infra.html' },
+  { title: 'CSP Strategy & Vendor Selection Framework',  type: 'Framework',           practice: 'CSP & Infra',  href: '../practices/csp-infra.html' },
   // ENABLERS
   { title: 'I&I April 2026',                            type: 'Intelligence Report', practice: 'Insights & Intelligence',    href: '../enablers/insights-intelligence.html' },
   { title: 'I&I March 2026',                            type: 'Intelligence Report', practice: 'Insights & Intelligence',    href: '../enablers/insights-intelligence.html' },
