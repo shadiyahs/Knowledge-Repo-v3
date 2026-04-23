@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Content — Fortude Repository</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Plausible Analytics: update data-domain if custom domain changes -->
+    <script defer data-domain="knowledge.fortude.co" src="https://plausible.io/js/script.tagged-events.js"></script>
 </head>
 <body>
     <nav class="global-nav" style="position:relative;">
@@ -53,6 +55,7 @@
                                 <option>Low Code Application Development</option>
                                 <option>Managed Services</option>
                                 <option>Digital &amp; AI Advisory</option>
+                                <option>CSP &amp; Infra</option>
                             </optgroup>
                             <optgroup label="Enablers">
                                 <option>Insights &amp; Intelligence</option>
@@ -236,18 +239,8 @@
         }
     });
 
-    function saveDraft() {
-        alert('Draft saved. You can return to complete and submit this later.');
-    }
-
-    function submitForm() {
-        var required = ['field-title','field-practice','field-type','field-region','field-audience','field-summary'];
-        var missing = required.filter(function(id){ return !document.getElementById(id).value.trim(); });
-        if (missing.length) {
-            alert('Please complete all required fields before submitting.');
-            document.getElementById(missing[0]).focus();
-            return;
-        }
+    function saveDraft() { alert('Draft saved. You can return to complete and submit this later.'); }
+    // submitForm() is defined in repository.js
         document.getElementById('submit-form-wrapper').style.display = 'none';
         document.getElementById('submit-success').style.display = 'block';
         window.scrollTo(0,0);
